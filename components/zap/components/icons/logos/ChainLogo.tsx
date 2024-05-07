@@ -1,12 +1,11 @@
 import React, { SVGProps } from 'react'
-import { ChainId } from 'components/zap/utils/chains'
+import { ChainId } from '../../../utils/chains'
 import Ethereum from './Ethereum'
 import Base from './Base'
 
 export const chainIcons = {
   [ChainId.Mainnet]: Ethereum,
   [ChainId.Base]: Base,
-  [ChainId.Hardhat]: Ethereum,
 }
 
 interface Props extends SVGProps<SVGSVGElement> {

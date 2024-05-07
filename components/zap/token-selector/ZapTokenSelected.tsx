@@ -1,4 +1,4 @@
-import TokenItem from 'components/zap/components/token-item'
+import TokenItem from '../components/token-item'
 import { useZap } from '../context/ZapContext'
 
 const ZapTokenSelected = () => {

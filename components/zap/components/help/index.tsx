@@ -1,5 +1,5 @@
-import HelpIcon from 'components/zap/components/icons/HelpIcon'
-import { MouseoverTooltip } from 'components/zap/components/tooltip'
+import HelpIcon from '../../components/icons/HelpIcon'
+import { MouseoverTooltip } from '../../components/tooltip'
 import { Box, BoxProps } from 'theme-ui'
 
 interface Props extends BoxProps {

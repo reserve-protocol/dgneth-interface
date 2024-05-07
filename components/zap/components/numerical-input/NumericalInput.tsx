@@ -1,4 +1,4 @@
-import Input from 'components/zap/components/input'
+import Input from '../../components/input'
 import { InputProps as ThemeInputProps } from 'theme-ui'
 
 const inputRegex = RegExp(`^[0-9]*[.]?[0-9]*$`)

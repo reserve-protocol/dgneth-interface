@@ -1,68 +1,10 @@
-import styled from '@emotion/styled'
 import { Options, Placement } from '@popperjs/core'
-import useOnClickOutside from 'components/zap/hooks/useOnClickOutside'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { usePopper } from 'react-popper'
-import useInterval from '../../hooks/useInterval'
 import { createPortal } from 'react-dom'
-
-const PopoverContainer = styled.div<{ show: boolean }>`
-  z-index: 100010;
-  visibility: ${(props) => (props.show ? 'visible' : 'hidden')};
-  opacity: ${(props) => (props.show ? 1 : 0)};
-  transition: visibility 150ms linear, opacity 150ms linear;
-`
-// color: ${({ theme }) => theme.text2};
-
-const ReferenceElement = styled.div`
-  display: block;
-`
-
-// border: 1px solid ${({ theme }) => theme.bg2};
-// background: ${({ theme }) => theme.bg0};
-const Arrow = styled.div`
-  width: 8px;
-  height: 8px;
-  z-index: 100010;
-  ::before {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    z-index: 9998;
-    content: '';
-    border: 1px solid black;
-    transform: rotate(45deg);
-    background: white;
-  }
-  &.arrow-top {
-    bottom: -5px;
-    ::before {
-      border-top: none;
-      border-left: none;
-    }
-  }
-  &.arrow-bottom {
-    top: -5px;
-    ::before {
-      border-bottom: none;
-      border-right: none;
-    }
-  }
-  &.arrow-left {
-    right: -5px;
-    ::before {
-      border-bottom: none;
-      border-left: none;
-    }
-  }
-  &.arrow-right {
-    left: -5px;
-    ::before {
-      border-right: none;
-      border-top: none;
-    }
-  }
-`
+import { usePopper } from 'react-popper'
+import { Box } from 'theme-ui'
+import useInterval from '../../hooks/useInterval'
+import useOnClickOutside from '../../hooks/useOnClickOutside'
 
 export interface PopoverProps {
   content: React.ReactNode
@@ -134,19 +76,65 @@ export default function Popover({
 
   return (
     <>
-      <ReferenceElement ref={setReferenceElement as any}>
-        {children}
-      </ReferenceElement>
+      <Box ref={setReferenceElement as any}>{children}</Box>
       {createPortal(
-        <PopoverContainer
-          show={show}
+        <Box
+          sx={{
+            zIndex: 100010,
+            visibility: show ? 'visible' : 'hidden',
+            opacity: show ? 1 : 0,
+            transition: 'visibility 150ms linear, opacity 150ms linear',
+          }}
           ref={popperElement}
           style={{ ...styles.popper, zIndex }}
           {...attributes.popper}
         >
           {content}
           {arrow && (
-            <Arrow
+            <Box
+              sx={{
+                width: 8,
+                height: 8,
+                zIndex: 100010,
+                '::before': {
+                  position: 'absolute',
+                  width: 8,
+                  height: 8,
+                  zIndex: 9998,
+                  content: '""',
+                  border: '1px solid black',
+                  transform: 'rotate(45deg)',
+                  background: 'white',
+                },
+                '&.arrow-top': {
+                  bottom: -5,
+                  '::before': {
+                    borderTop: 'none',
+                    borderLeft: 'none',
+                  },
+                },
+                '&.arrow-bottom': {
+                  top: -5,
+                  '::before': {
+                    borderBottom: 'none',
+                    borderRight: 'none',
+                  },
+                },
+                '&.arrow-left': {
+                  right: -5,
+                  '::before': {
+                    borderBottom: 'none',
+                    borderLeft: 'none',
+                  },
+                },
+                '&.arrow-right': {
+                  left: -5,
+                  '::before': {
+                    borderRight: 'none',
+                    borderTop: 'none',
+                  },
+                },
+              }}
               className={`arrow-${
                 attributes.popper?.['data-popper-placement'] ?? ''
               }`}
@@ -155,7 +143,7 @@ export default function Popover({
               {...attributes.arrow}
             />
           )}
-        </PopoverContainer>,
+        </Box>,
         document.body
       )}
     </>

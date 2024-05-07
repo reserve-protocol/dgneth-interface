@@ -1,18 +1,14 @@
-import TokenLogo from 'components/zap/components/icons/TokenLogo'
-import { SearchInput } from 'components/zap/components/input'
-import Modal from 'components/zap/components/modal'
-import {
-  ExplorerDataType,
-  getExplorerLink,
-} from 'components/zap/utils/getExplorerLink'
+import TokenLogo from '../components/icons/TokenLogo'
+import { SearchInput } from '../components/input'
+import Modal from '../components/modal'
+import { ExplorerDataType, getExplorerLink } from '../utils/getExplorerLink'
 import { useMemo, useState } from 'react'
 import { ArrowUpRight, X } from 'react-feather'
-import { colors } from 'components/zap/theme'
 import { Box, Button, Divider, Link, Text } from 'theme-ui'
 import { Address } from 'viem'
 import { useZap } from '../context/ZapContext'
 import { formatCurrency, shortenString } from '../utils'
-import ZapManualMint from './ZapManualMint'
+import { colors } from '../theme'
 
 const ZapTokenList = ({
   entries,

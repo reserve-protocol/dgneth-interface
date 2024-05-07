@@ -1,19 +1,24 @@
-import styled from '@emotion/styled'
 import { ReactNode, useCallback, useState } from 'react'
 
 import Popover, { PopoverProps } from '../popover'
+import { Box, BoxProps } from 'theme-ui'
 
-export const TooltipContainer = styled.div`
-  max-width: 340px;
-  padding: 0.8rem 1rem;
-  font-weight: 400;
-  word-break: break-word;
-  color: var(--theme-ui-colors-text);
-  background-color: var(--theme-ui-colors-backgroundNested);
-  border: 1px solid var(--theme-ui-colors-inputBorder);
-  box-shadow: 0px 4px 24px var(--theme-ui-colors-contentBackground);
-  border-radius: 8px;
-`
+const TooltipContainer = (props: BoxProps) => (
+  <Box
+    {...props}
+    sx={{
+      maxWidth: '340px',
+      padding: '0.8rem 1rem',
+      fontWeight: 400,
+      wordBreak: 'break-word',
+      color: 'text',
+      backgroundColor: 'backgroundNested',
+      border: '1px solid var(--theme-ui-colors-inputBorder)',
+      boxShadow: '0px 4px 24px var(--theme-ui-colors-contentBackground)',
+      borderRadius: '8px',
+    }}
+  />
+)
 
 interface TooltipProps extends Omit<PopoverProps, 'content'> {
   text: ReactNode

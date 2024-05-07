@@ -1,6 +1,6 @@
-import TokenLogo from 'components/zap/components/icons/TokenLogo'
-import Base from 'components/zap/components/icons/logos/Base'
-import Ethereum from 'components/zap/components/icons/logos/Ethereum'
+import TokenLogo from '../../components/icons/TokenLogo'
+import Base from '../../components/icons/logos/Base'
+import Ethereum from '../../components/icons/logos/Ethereum'
 import { Text, BoxProps, Box, Flex } from 'theme-ui'
 
 interface Props extends BoxProps {

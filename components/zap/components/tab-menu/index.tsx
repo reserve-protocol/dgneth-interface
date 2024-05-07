@@ -1,7 +1,6 @@
-import React, { useMemo } from 'react'
-import { useCallback, useState } from 'react'
-import { borderRadius } from 'components/zap/theme'
+import React, { useCallback, useMemo } from 'react'
 import { Box, BoxProps, Text } from 'theme-ui'
+import { borderRadius } from '../../theme'
 
 interface Item {
   key: string | number

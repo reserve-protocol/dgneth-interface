@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useZap } from '../context/ZapContext'
-import { LoadingButton } from 'components/zap/components/button'
-import { TransactionButtonContainer } from 'components/zap/components/button/TransactionButton'
+import { LoadingButton } from '../components/button'
+import { TransactionButtonContainer } from '../components/button/TransactionButton'
 
 const ZapSubmitButton = () => {
   const {
