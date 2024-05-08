@@ -14,7 +14,6 @@ const ZapSettingsModal = () => {
     <Modal
       p={0}
       width={360}
-      sx={{ border: '3px solid', borderColor: 'borderFocused' }}
       onClose={() => setOpenSettings(false)}
       closeOnClickAway
       hideCloseButton
@@ -25,15 +24,19 @@ const ZapSettingsModal = () => {
           flexDirection: 'column',
           overflow: 'hidden',
           height: '100%',
-          backgroundColor: 'backgroundNested',
         }}
       >
         <Box variant="layout.verticalAlign" p={4} mb={[3, 0]} pt={3} pb={0}>
           <Text variant="sectionTitle">Zap Settings</Text>
           <Button
-            variant="circle"
+            pr={0}
             onClick={() => setOpenSettings(false)}
-            sx={{ marginLeft: 'auto', backgroundColor: 'transparent' }}
+            sx={{
+              marginLeft: 'auto',
+              color: '#fff',
+              cursor: 'pointer',
+              backgroundColor: 'transparent',
+            }}
           >
             <X />
           </Button>
@@ -51,7 +54,7 @@ const ZapSettingsModal = () => {
               py={2}
               sx={{ justifyContent: 'space-between' }}
             >
-              <Text variant="legend">Collect dust?</Text>
+              <Text>Collect dust?</Text>
               <Help
                 content={`Dust is the leftover amount of tokens that cannot be exchanged. If you choose to collect dust, it will be sent back to your wallet. Sending dust back to the wallet will increase transaction fee.`}
               />
@@ -66,7 +69,7 @@ const ZapSettingsModal = () => {
               py={2}
               sx={{ justifyContent: 'space-between' }}
             >
-              <Text variant="legend">Max. mint slippage</Text>
+              <Text>Max. mint slippage</Text>
               <Help
                 content={`The maximum amount of slippage you are willing to accept when minting. Higher slippage settings will make the transaction more likely to succeed, but may result in fewer tokens minted.`}
               />

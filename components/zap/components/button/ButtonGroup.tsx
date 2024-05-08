@@ -22,7 +22,7 @@ const ButtonGroup: FC<ButtonGroupProps> = ({ buttons, startActive = 0 }) => {
         flexDirection: 'row',
         borderRadius: 8,
         overflow: 'hidden',
-        background: 'border',
+        background: 'focusBox',
         gap: '2px',
         p: '2px',
         width: 'fit-content',
@@ -36,8 +36,8 @@ const ButtonGroup: FC<ButtonGroupProps> = ({ buttons, startActive = 0 }) => {
             button.onClick()
           }}
           sx={{
-            backgroundColor: index === active ? 'background' : 'border',
-            color: index === active ? 'primary' : 'text',
+            backgroundColor: index === active ? '#fff' : 'transparent',
+            color: index === active ? 'text' : '#fff',
             border: 'none',
             borderRadius: 6,
             cursor: 'pointer',
@@ -45,9 +45,8 @@ const ButtonGroup: FC<ButtonGroupProps> = ({ buttons, startActive = 0 }) => {
             fontSize: 14,
             whiteSpace: 'nowrap',
             '&:hover': {
-              filter: 'brightness(1)',
-              backgroundColor: 'background',
-              color: 'primary',
+              backgroundColor: '#fff',
+              color: 'text',
             },
           }}
         >

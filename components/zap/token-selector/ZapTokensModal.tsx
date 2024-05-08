@@ -24,9 +24,9 @@ const ZapTokenList = ({
   return (
     <Box
       sx={{
-        height: ['auto', '360px'],
-        background: 'backgroundNested',
+        height: ['auto', '430px'],
         display: 'flex',
+
         flexDirection: 'column',
         minWidth: '140px',
         overflow: 'auto',
@@ -112,7 +112,6 @@ const ZapTokensModal = () => {
     <Modal
       p={0}
       width={420}
-      sx={{ border: '3px solid', borderColor: 'borderFocused' }}
       onClose={() => setOpenTokenSelector(false)}
       closeOnClickAway
       hideCloseButton
@@ -123,7 +122,6 @@ const ZapTokensModal = () => {
           flexDirection: 'column',
           overflow: 'hidden',
           height: '100%',
-          backgroundColor: 'backgroundNested',
         }}
       >
         <Box variant="layout.verticalAlign" p={4} mb={[3, 0]} pt={3} pb={0}>
@@ -133,7 +131,14 @@ const ZapTokensModal = () => {
           <Button
             variant="circle"
             onClick={() => setOpenTokenSelector(false)}
-            sx={{ marginLeft: 'auto', backgroundColor: 'transparent' }}
+            ml="auto"
+            p={2}
+            pr={0}
+            sx={{
+              marginLeft: 'auto',
+              cursor: 'pointer',
+              backgroundColor: 'transparent',
+            }}
           >
             <X />
           </Button>
@@ -148,17 +153,8 @@ const ZapTokensModal = () => {
             autoFocus
             value={search}
             onChange={setSearch}
-            backgroundColor="focusedBackground"
-            sx={{
-              '&:focus': {
-                backgroundColor: 'focusedBackground',
-              },
-              '&:hover': {
-                backgroundColor: 'focusedBackground',
-              },
-            }}
+            mb={2}
           />
-          <Divider sx={{ mx: '-12px', my: 0 }} />
           <ZapTokenList entries={entries} />
         </Box>
       </Box>

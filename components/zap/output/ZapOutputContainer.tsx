@@ -13,9 +13,8 @@ const ZapOutputContainer = () => {
       variant="layout.centered"
       sx={{
         position: 'relative',
-        border: '1px solid',
-        borderColor: 'borderSecondary',
         borderRadius: '8px',
+        backgroundColor: 'secondary',
         overflow: 'hidden',
         gap: '8px',
         alignItems: 'start',

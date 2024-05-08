@@ -35,12 +35,13 @@ const Dialog = forwardRef<HTMLDivElement, ModalProps>(
       {...props}
       aria-label="Modal"
       sx={{
-        backgroundColor: 'backgroundNested',
+        backgroundColor: 'background',
         padding: 4,
+        color: '#fff',
         borderRadius: [0, '12px'],
         boxShadow: ['none', 'rgba(0, 0, 0, 0.2) 0px 24px 48px'],
         border: '3px solid',
-        borderColor: 'borderFocused',
+        borderColor: 'contentBackground',
         position: 'absolute',
         left: [0, '50%'],
         top: [0, '50%'],

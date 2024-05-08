@@ -11,15 +11,16 @@ export const centeredContent = {
 }
 export const borderRadius = {
   inputs: 6,
-  boxes: 14,
+  boxes: 16,
   inner: '4px',
+  buttons: '100px',
 }
 export const baseButton = {
-  borderRadius: borderRadius.inputs,
-  fontWeight: 500,
+  borderRadius: borderRadius.buttons,
+  fontWeight: 'bold',
   cursor: 'pointer',
-  color: '#fff',
   backgroundColor: 'primary',
+  color: 'text',
   padding: '12px 16px',
 
   '&:hover': {
@@ -86,23 +87,22 @@ export const colors = {
   invertedText: '#FFFFFF',
   secondaryText: '#666666',
   lightText: '#808080',
-  background: '#FEFBF8',
+  background: '#181818',
   backgroundNested: '#FEFBF8',
   focusedBackground: '#FFFFFF',
   inputBackground: '#E5E5E5',
   inputAlternativeBackground: '#f2f2f2',
   // contentBackground: '#F9F8F4',
   lightGrey: '#f2f2f2',
-  focusBox: '#f2f2f2',
-  contentBackground: '#F9EDDD',
-  reserveBackground: '#F9EDDD',
+  focusBox: '#0F0818',
+  contentBackground: '#0E0E0E',
   contentLightBackground: 'rgba(249, 248, 244, 0.5)',
-  primary: '#2150A9',
+  primary: '#B090EF',
   success: '#11BB8D',
   accentAction: '#106D46',
   accentBG: '#D5DBE7',
   accentText: '#00814B',
-  secondary: '#E8E8E8',
+  secondary: '#30263D',
   secondaryBackground: '#E5E5E5',
   rBlue: '#2150A9', // TODO: Remove in favor for accent
   accent: '#2150A9',
@@ -118,50 +118,10 @@ export const colors = {
   disabled: '#D9D9D9',
   danger: '#FF0000',
   dangerBG: 'rgba(255, 0, 0, 0.15)',
-  muted: '#D9D9D9',
+  muted: '#A4A4A4',
   warning: '#FF8A00',
   modalOverlay: 'rgba(0, 0, 0, 0.2)',
-  cardAlternative: '#fff',
-  modes: {
-    dark: {
-      accentInverted: '#fff',
-      text: '#E4DEDE',
-      shadow: 'rgba(0, 0, 0, 0.2)',
-      rBlueLight: '#0D1321',
-      secondaryText: '#969696',
-      invertedText: '#171515',
-      lightText: '#6F6666',
-      background: '#0C0C0B',
-      reserveBackground: '#171311',
-      contentBackground: '#11100F',
-      secondaryBackground: '#262321',
-      contentLightBackground: 'rgba(15, 14, 13, 0.5)',
-      primary: '#2150A9',
-      secondary: '#262321',
-      backgroundNested: '#181715',
-      focusedBackground: '#262321',
-      focusBox: '#191816',
-      inputBackground: '#000000',
-      inputAlternativeBackground: '#000000',
-      disabled: '#242424',
-      accentAction: '#106D46',
-      accentBG: '#08142A',
-      border: '#272625',
-      borderFocused: '#2B2723',
-      borderSecondary: '#322F2C',
-      darkBorder: '#343230',
-      inputBorder: '#403C39',
-      success: '#75FBC3',
-      info: '#20678E',
-      infoBG: 'rgba(32, 103, 142, 0.4)',
-      danger: '#FF0000',
-      dangerBG: 'rgba(255, 0, 0, 0.4)',
-      muted: '#3E3B37',
-      warning: '#FF7A00',
-      modalOverlay: 'rgba(20, 20, 20, 0.6)',
-      cardAlternative: '#252421',
-    },
-  },
+  cardAlternative: '#190E28',
 }
 
 export const theme: Theme = {
@@ -173,7 +133,7 @@ export const theme: Theme = {
     monospace: 'Menlo, monospace',
     fontDisplay: 'swap',
   },
-  fontSizes: [12, 14, 16, 20, 24, 32, 48, 56, 96],
+  fontSizes: [12, 14, 16, 20, 24, 32, 42, 56, 96],
   fontWeights: {
     body: 400,
     heading: 500,
@@ -185,10 +145,11 @@ export const theme: Theme = {
   },
   colors,
   text: {
-    heading: {
-      // fontFamily: 'heading',
-      lineHeight: 'heading',
-      fontWeight: 'heading',
+    hero: {
+      fontSize: 6,
+      fontWeight: 700,
+      display: 'block',
+      color: 'primary',
     },
     subtitle: {
       fontSize: 2,
@@ -237,7 +198,8 @@ export const theme: Theme = {
       color: 'secondaryText',
     },
     accent: {
-      color: 'accent',
+      color: 'primary',
+      fontWeight: 700,
     },
     muted: {
       color: 'muted',
@@ -308,79 +270,6 @@ export const theme: Theme = {
       fontFamily: 'monospace',
       fontSize: 'inherit',
     },
-    table: {
-      margin: 0,
-      borderCollapse: 'separate',
-      fontSize: 1,
-      lineHeight: '16px',
-      textAlign: 'left',
-      width: '100%',
-      position: 'relative',
-      overflow: 'auto',
-      borderSpacing: '0 14px',
-      display: 'flex',
-      flexDirection: 'column',
-      // '&::-webkit-scrollbar': {
-      //   display: 'none',
-      // },
-      // scrollbarWidth: 'none',
-
-      p: {
-        m: 0,
-      },
-      pre: {
-        mt: 2,
-        mb: 0,
-      },
-    },
-    th: {
-      border: 'none',
-      px: [3, 4],
-      color: 'secondaryText',
-      // pl: 3,
-      fontWeight: 'normal',
-    },
-    tbody: {
-      'tr:last-of-type': {
-        borderBottom: 0,
-      },
-      display: 'table',
-      width: '100%',
-    },
-    thead: {
-      display: 'table',
-      width: '100%',
-      color: 'lightText',
-      marginBottom: -20,
-    },
-    td: {
-      py: [3, 4],
-      px: [3, 4],
-      borderBottom: 0,
-
-      '&:first-of-type': {
-        borderTopLeftRadius: borderRadius.boxes,
-        borderBottomLeftRadius: borderRadius.boxes,
-      },
-      '&:last-of-type': {
-        borderTopRightRadius: borderRadius.boxes,
-        borderBottomRightRadius: borderRadius.boxes,
-      },
-    },
-    tdgroup: {
-      lineHeight: '24px',
-      background: '#fafbfc',
-      whiteSpace: 'nowrap',
-      py: 3,
-      fontWeight: 'bold',
-      // fontFamily: 'monospace',
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    tr: {
-      backgroundColor: 'contentBackground',
-      // borderBottom: (t: Theme) => ` 1px solid  ${t.colors?.shadow}`,
-    },
   },
   forms: {
     input: {
@@ -420,8 +309,9 @@ export const theme: Theme = {
   cards: {
     primary: {
       borderRadius: borderRadius.boxes,
-      padding: 3,
       backgroundColor: 'contentBackground',
+      color: '#fff',
+      padding: 3,
     },
     form: {
       borderRadius: borderRadius.boxes,
@@ -455,7 +345,7 @@ export const theme: Theme = {
     },
     accent: {
       ...baseButton,
-      backgroundColor: 'accent',
+      backgroundColor: '#fff',
     },
     accentAction: {
       ...baseButton,
@@ -515,23 +405,6 @@ export const theme: Theme = {
         cursor: 'default',
         color: 'danger',
       },
-    },
-    circle: {
-      ...baseButton,
-      backgroundColor: 'background',
-      border: '1px solid',
-      borderColor: 'border',
-      color: 'text',
-      display: 'flex',
-      borderRadius: '6px',
-      alignContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      height: 28,
-      width: 28,
-      paddingLeft: 1,
-      paddingRight: 1,
-      padding: 1,
     },
   },
   badges: {

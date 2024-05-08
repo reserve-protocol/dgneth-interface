@@ -9,8 +9,7 @@ const ZapSettingsCollectDust = () => {
       sx={{
         borderRadius: '8px',
         border: '1px solid',
-        borderColor: 'borderFocused',
-        backgroundColor: 'focusedBackground',
+        borderColor: 'primary',
       }}
     >
       <label

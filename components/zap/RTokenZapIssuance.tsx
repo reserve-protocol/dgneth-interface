@@ -5,49 +5,38 @@ import ZapTabs from './ZapTabs'
 import ZapInputContainer from './input/ZapInputContainer'
 import ZapOutputContainer from './output/ZapOutputContainer'
 import ZapSubmit from './submit/ZapSubmit'
+import { ZapProvider } from './context/ZapContext'
 
 const RTokenZapIssuance = () => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignSelf: 'stretch',
-        borderRadius: '14px',
-        bg: 'cardAlternative',
-        boxShadow: '0px 10px 38px 6px rgba(0, 0, 0, 0.05)',
-        height: 'fit-content',
-      }}
-    >
-      <Box p={4}>
-        <ZapTabs />
-      </Box>
-      <Divider m={0} sx={{ borderColor: 'borderSecondary' }} />
-      <Box p={4} sx={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <ZapInputContainer />
-          <Box variant="layout.verticalAlign" sx={{ gap: '12px', px: 3 }}>
-            <Divider sx={{ flexGrow: 1, borderColor: 'borderSecondary' }} />
-            <Box
-              p="1"
-              pb="0"
-              sx={{
-                border: '1px solid',
-                borderColor: 'borderSecondary',
-                borderRadius: '6px',
-                backgroundColor: 'focusBox',
-              }}
-            >
-              <ArrowDown size={24} strokeWidth={1.2} color="#666666" />
-            </Box>
-            <Divider sx={{ flexGrow: 1, borderColor: 'borderSecondary' }} />
-          </Box>
-          <ZapOutputContainer />
+    <ZapProvider>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignSelf: 'stretch',
+          borderRadius: '14px',
+          bg: 'cardAlternative',
+          height: 'fit-content',
+          color: '#fff',
+        }}
+      >
+        <Box p={4}>
+          <ZapTabs />
         </Box>
-        <ZapOperationDetails />
-        <ZapSubmit />
+        <Box
+          p={4}
+          sx={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
+        >
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <ZapInputContainer />
+            <ZapOutputContainer />
+          </Box>
+          <ZapOperationDetails />
+          <ZapSubmit />
+        </Box>
       </Box>
-    </Box>
+    </ZapProvider>
   )
 }
 

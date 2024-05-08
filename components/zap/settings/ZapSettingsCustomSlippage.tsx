@@ -24,6 +24,7 @@ const ZapSettingsCustomSlippage = ({
         borderRadius: 8,
         px: '12px',
         py: 2,
+        color: '#fff',
       }}
     >
       Custom

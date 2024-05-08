@@ -18,6 +18,7 @@ const IMGS = new Set([
   'usdbc',
   'usdc',
   'usdt',
+  'weth',
   'wbtc',
   'wsteth',
 ])

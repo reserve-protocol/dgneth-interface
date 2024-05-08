@@ -1,9 +1,10 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { Box } from 'theme-ui'
+import { Box, Card, Flex, Text } from 'theme-ui'
 import RTokenZapIssuance from '../components/zap/RTokenZapIssuance'
+import Brand from '../components/icons/Brand'
+import ConnectButton from '../components/ConnectButton'
 
 {
   /* <Head>
@@ -20,11 +21,111 @@ import RTokenZapIssuance from '../components/zap/RTokenZapIssuance'
   /* <ConnectButton /> */
 }
 
-const Home: NextPage = () => {
+const Header = () => {
+  return (
+    <Box
+      sx={{
+        backgroundColor: '#181818',
+      }}
+      p={4}
+      variant="layout.verticalAlign"
+    >
+      <Brand />
+      <Box mx="auto" />
+      <ConnectButton />
+    </Box>
+  )
+}
+
+const StakingAPY = () => {
+  return (
+    <Card sx={{ flexGrow: 1 }}>
+      <Text>Staking APY</Text>
+      <Text variant="hero" mt="4" mr="6">
+        48%
+      </Text>
+      <Text variant="accent">320%</Text> <Text variant="muted">30d avg</Text>
+    </Card>
+  )
+}
+
+const Balances = () => {
+  return (
+    <Card sx={{ flexGrow: 1 }}>
+      <Text>Your dgnETH</Text>
+      <Box sx={{ borderRadius: '8px', backgroundColor: 'background' }}>
+        <Flex>
+          <Text>In wallet</Text>
+          <Text ml="auto">$12K</Text>
+        </Flex>
+        <Flex>
+          <Text variant="accent">4.2</Text>
+          <Text variant="muted" ml="auto">
+            4.5 ETH
+          </Text>
+        </Flex>
+        <Flex>
+          <Text>Staked</Text>
+          <Text ml="auto">$12K</Text>
+        </Flex>
+        <Flex>
+          <Text>12</Text>
+          <Text variant="muted" ml="auto">
+            13 ETH
+          </Text>
+        </Flex>
+      </Box>
+    </Card>
+  )
+}
+
+const Supply = () => {
+  return (
+    <Card>
+      <Text>dgnETH Supply</Text>
+    </Card>
+  )
+}
+
+const Earnings = () => {
+  return (
+    <Card>
+      <Box variant="layout.verticalAlign">
+        <Text>Your earnings</Text>
+      </Box>
+    </Card>
+  )
+}
+
+const Overview = () => {
   return (
     <Box>
-      hola
+      <Text></Text>
+    </Box>
+  )
+}
+
+const ActionContainer = () => {
+  return (
+    <Box>
       <RTokenZapIssuance />
+    </Box>
+  )
+}
+
+const Home: NextPage = () => {
+  return (
+    <Box variant="layout.wrapper">
+      <Header />
+      <Flex p={4} sx={{ gap: 3 }}>
+        <StakingAPY />
+        <Balances />
+        <Box sx={{ flexGrow: 1.5 }}>
+          <Supply />
+          <Earnings />
+        </Box>
+      </Flex>
+      <ActionContainer />
     </Box>
   )
 }

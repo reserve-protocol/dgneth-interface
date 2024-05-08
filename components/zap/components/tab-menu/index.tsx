@@ -24,11 +24,10 @@ const defaultStyles = (
 ) => ({
   // border: '1px solid',
   // borderColor: 'border',
-  color: 'secondaryText',
-  fontSize: small ? 0 : 1,
-  fontWeight: small ? 500 : 400,
+  color: '#fff',
+  fontWeight: 700,
   borderRadius: borderRadius.inputs,
-  background: 'inputBackground',
+  background: 'focusBox',
   width: 'fit-content',
   '>div': {
     padding: small ? '6px' : '6px 8px 6px 8px',
@@ -45,12 +44,10 @@ const defaultStyles = (
     ':first-of-type': {
       marginLeft: 0,
     },
-    ':hover': {
-      backgroundColor: 'inputBorder',
-    },
+
     '&.active': {
       backgroundColor: 'focusedBackground',
-      color: 'accentInverted',
+      color: 'text',
       fontWeight: 500,
     },
   },

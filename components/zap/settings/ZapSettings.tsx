@@ -16,7 +16,6 @@ const ZapSettings = () => {
           border: '1px solid',
           borderColor: 'borderSecondary',
           borderRadius: '6px',
-          ':hover': { backgroundColor: 'border' },
         }}
         onClick={() => setOpenSettings(true)}
       >
