@@ -215,13 +215,21 @@ export const theme: Theme = {
     },
   },
   styles: {
+    ul: {
+      listStyle: 'none',
+      margin: 0,
+    },
+    li: {
+      listStyle: 'none',
+    },
     a: {
       transition,
-      color: 'lightText',
+      display: 'block',
+      color: '#fff',
       textDecoration: 'none',
       cursor: 'pointer',
       '&:hover': {
-        color: 'text',
+        color: 'primary',
       },
     },
     root: {
@@ -370,12 +378,9 @@ export const theme: Theme = {
     transparent: {
       ...baseButton,
       backgroundColor: 'transparent',
-      border: '1px solid',
-      borderColor: 'inputBorder',
+      padding: 0,
+      cursor: 'pointer',
       color: 'text',
-      '&:hover': {
-        borderColor: 'text',
-      },
     },
     hover: {
       ...baseButton,
@@ -440,7 +445,7 @@ export const theme: Theme = {
   },
   layout: {
     wrapper: {
-      maxWidth: '95em',
+      maxWidth: '70em',
       marginLeft: 'auto',
       marginRight: 'auto',
     },

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { Box, Card, Flex, Text } from 'theme-ui'
+import { Box, Card, Flex, Link, Text } from 'theme-ui'
 import RTokenZapIssuance from '../components/zap/RTokenZapIssuance'
 import Brand from '../components/icons/Brand'
 import ConnectButton from '../components/ConnectButton'
@@ -39,12 +39,12 @@ const Header = () => {
 
 const StakingAPY = () => {
   return (
-    <Card sx={{ flexGrow: 1 }}>
+    <Card sx={{ flexGrow: 1, position: 'relative' }}>
       <Text>Staking APY</Text>
-      <Text variant="hero" mt="4" mr="6">
-        48%
-      </Text>
-      <Text variant="accent">320%</Text> <Text variant="muted">30d avg</Text>
+      <Box sx={{ position: 'absolute', bottom: 16 }}>
+        <Text variant="hero">48%</Text>
+        <Text variant="accent">320%</Text> <Text variant="muted">30d avg</Text>
+      </Box>
     </Card>
   )
 }
@@ -53,7 +53,11 @@ const Balances = () => {
   return (
     <Card sx={{ flexGrow: 1 }}>
       <Text>Your dgnETH</Text>
-      <Box sx={{ borderRadius: '8px', backgroundColor: 'background' }}>
+      <Box
+        mt={2}
+        p={2}
+        sx={{ borderRadius: '8px', backgroundColor: 'background' }}
+      >
         <Flex>
           <Text>In wallet</Text>
           <Text ml="auto">$12K</Text>
@@ -64,7 +68,7 @@ const Balances = () => {
             4.5 ETH
           </Text>
         </Flex>
-        <Flex>
+        <Flex mt={3}>
           <Text>Staked</Text>
           <Text ml="auto">$12K</Text>
         </Flex>
@@ -89,9 +93,13 @@ const Supply = () => {
 
 const Earnings = () => {
   return (
-    <Card>
-      <Box variant="layout.verticalAlign">
+    <Card mt={3}>
+      <Box sx={{ gap: 2 }} variant="layout.verticalAlign">
         <Text>Your earnings</Text>
+        <Text ml="auto" variant="muted">
+          12K
+        </Text>
+        <Text variant="accent">+0.8 dgnETH</Text>
       </Box>
     </Card>
   )
@@ -99,16 +107,63 @@ const Earnings = () => {
 
 const Overview = () => {
   return (
-    <Box>
-      <Text></Text>
+    <Box
+      px={3}
+      py={4}
+      sx={{
+        width: 240,
+        borderLeft: '1px solid',
+        flexShrink: 0,
+        borderColor: 'secondary',
+      }}
+    >
+      <Text mb="1" variant="bold">
+        Big boy ETH yield
+      </Text>
+      <Text variant="muted">
+        dgnETH gives you exposure to top yield strategies across DeFi
+      </Text>
     </Box>
   )
 }
 
 const ActionContainer = () => {
   return (
-    <Box>
-      <RTokenZapIssuance />
+    <Flex
+      sx={{
+        flexGrow: 1,
+        border: '3px solid',
+        borderColor: 'secondary',
+        borderRadius: '16px',
+        backgroundColor: 'cardAlternative',
+      }}
+    >
+      <RTokenZapIssuance style={{ flexGrow: 1 }} />
+      <Overview />
+    </Flex>
+  )
+}
+
+const Sidebar = () => {
+  return (
+    <Box ml="4" sx={{ position: 'relative', width: 150 }}>
+      <Box
+        mt="4"
+        as="ul"
+        sx={{ margin: 0, padding: 0, li: { listStyle: 'none' } }}
+      >
+        <Box as="li" sx={{ color: 'primary', fontWeight: 'bold' }}>
+          Minting
+        </Box>
+        <Box as="li" mt={3}>
+          Staking
+        </Box>
+      </Box>
+      <Box sx={{ position: 'absolute', bottom: 16 }}>
+        <Link>Earn</Link>
+
+        <Link>Learn more</Link>
+      </Box>
     </Box>
   )
 }
@@ -125,7 +180,10 @@ const Home: NextPage = () => {
           <Earnings />
         </Box>
       </Flex>
-      <ActionContainer />
+      <Card p={0} mx={4} sx={{ display: 'flex' }}>
+        <Sidebar />
+        <ActionContainer />
+      </Card>
     </Box>
   )
 }

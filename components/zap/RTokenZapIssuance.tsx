@@ -1,5 +1,5 @@
 import { ArrowDown } from 'react-feather'
-import { Box, Divider } from 'theme-ui'
+import { Box, BoxProps, Divider } from 'theme-ui'
 import ZapOperationDetails from './ZapOperationDetails'
 import ZapTabs from './ZapTabs'
 import ZapInputContainer from './input/ZapInputContainer'
@@ -7,7 +7,7 @@ import ZapOutputContainer from './output/ZapOutputContainer'
 import ZapSubmit from './submit/ZapSubmit'
 import { ZapProvider } from './context/ZapContext'
 
-const RTokenZapIssuance = () => {
+const RTokenZapIssuance = (props: BoxProps) => {
   return (
     <ZapProvider>
       <Box
@@ -20,6 +20,7 @@ const RTokenZapIssuance = () => {
           height: 'fit-content',
           color: '#fff',
         }}
+        {...props}
       >
         <Box p={4}>
           <ZapTabs />
