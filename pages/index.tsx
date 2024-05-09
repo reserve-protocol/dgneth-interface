@@ -5,6 +5,8 @@ import { Box, Card, Flex, Link, Text } from 'theme-ui'
 import RTokenZapIssuance from '../components/zap/RTokenZapIssuance'
 import Brand from '../components/icons/Brand'
 import ConnectButton from '../components/ConnectButton'
+import { atom, useAtom, useAtomValue } from 'jotai'
+import Staking from '../components/staking'
 
 {
   /* <Head>
@@ -127,7 +129,24 @@ const Overview = () => {
   )
 }
 
-const ActionContainer = () => {
+const isStakingAtom = atom(false)
+
+const IssuanceContainer = () => (
+  <Flex
+    sx={{
+      flexGrow: 1,
+      border: '3px solid',
+      borderColor: 'secondary',
+      borderRadius: '16px',
+      backgroundColor: 'cardAlternative',
+    }}
+  >
+    <RTokenZapIssuance style={{ flexGrow: 1 }} />
+    <Overview />
+  </Flex>
+)
+
+const StakingContainer = () => {
   return (
     <Flex
       sx={{
@@ -138,24 +157,53 @@ const ActionContainer = () => {
         backgroundColor: 'cardAlternative',
       }}
     >
-      <RTokenZapIssuance style={{ flexGrow: 1 }} />
+      <Staking />
       <Overview />
     </Flex>
   )
 }
 
+const ActionContainer = () => {
+  const isStaking = useAtomValue(isStakingAtom)
+
+  if (isStaking) {
+    return <StakingContainer />
+  }
+
+  return <IssuanceContainer />
+}
+
 const Sidebar = () => {
+  const [isStaking, setStaking] = useAtom(isStakingAtom)
+
   return (
     <Box ml="4" sx={{ position: 'relative', width: 150 }}>
       <Box
         mt="4"
         as="ul"
-        sx={{ margin: 0, padding: 0, li: { listStyle: 'none' } }}
+        sx={{
+          margin: 0,
+          padding: 0,
+          li: {
+            listStyle: 'none',
+            cursor: 'pointer',
+            '&.active': { color: 'primary', fontWeight: 'bold' },
+          },
+        }}
       >
-        <Box as="li" sx={{ color: 'primary', fontWeight: 'bold' }}>
+        <Box
+          as="li"
+          className={!isStaking ? 'active' : ''}
+          onClick={() => setStaking(false)}
+        >
           Minting
         </Box>
-        <Box as="li" mt={3}>
+        <Box
+          as="li"
+          mt={3}
+          className={isStaking ? 'active' : ''}
+          onClick={() => setStaking(true)}
+        >
           Staking
         </Box>
       </Box>

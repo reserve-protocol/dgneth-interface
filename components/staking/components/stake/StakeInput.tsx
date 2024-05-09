@@ -1,0 +1,101 @@
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { useEffect } from 'react'
+import { Box, Text } from 'theme-ui'
+import Button from '../../../zap/components/button'
+import TokenLogo from '../../../zap/components/icons/TokenLogo'
+import NumericalInput from '../../../zap/components/numerical-input/NumericalInput'
+import { borderRadius } from '../../../zap/theme'
+import { formatCurrency } from '../../../zap/utils'
+import { balanceAtom, priceAtom, stakeAmountAtom } from '../../atoms'
+import { TOKEN } from '../../constants'
+import InputPostfix from './InputPostfix'
+
+const StakeInputField = () => {
+  const [amount, setAmount] = useAtom(stakeAmountAtom)
+
+  useEffect(() => {
+    return () => {
+      setAmount('')
+    }
+  }, [])
+
+  return (
+    <Box sx={{ position: 'relative', zIndex: 0 }}>
+      <NumericalInput
+        variant="transparent"
+        placeholder={`0 ${TOKEN.symbol}`}
+        value={amount}
+        onChange={setAmount}
+      />
+      {!!amount && <InputPostfix amount={amount} symbol={TOKEN.symbol} />}
+    </Box>
+  )
+}
+
+const StakeUsdAmount = () => {
+  const price = useAtomValue(priceAtom)
+  const amount = useAtomValue(stakeAmountAtom)
+
+  if (!amount) {
+    return null
+  }
+
+  return (
+    <Text
+      mr="3"
+      sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
+      variant="legend"
+    >
+      ${formatCurrency(price * Number(amount), 2)}
+    </Text>
+  )
+}
+
+const StakeBalance = () => {
+  const balance = useAtomValue(balanceAtom)
+  const setAmount = useSetAtom(stakeAmountAtom)
+
+  return (
+    <Box ml="auto" variant="layout.verticalAlign" sx={{ flexShrink: 0 }}>
+      <TokenLogo width={16} src={TOKEN.logo} />
+      <Text ml="2" variant="legend">
+        Balance
+      </Text>
+      <Text variant="strong" mx="1">
+        {formatCurrency(+balance.formatted, 2, {
+          notation: 'compact',
+          compactDisplay: 'short',
+        })}
+      </Text>
+      <Button
+        small
+        variant="muted"
+        onClick={() => setAmount(balance.formatted)}
+      >
+        Max
+      </Button>
+    </Box>
+  )
+}
+
+const StakeInput = () => (
+  <Box
+    sx={{
+      overflow: 'hidden',
+      backgroundColor: 'focusBox',
+      borderRadius: borderRadius.boxes,
+    }}
+    p={3}
+    mb={2}
+  >
+    <Text>You stake:</Text>
+    <StakeInputField />
+
+    <Box variant="layout.verticalAlign">
+      <StakeUsdAmount />
+      <StakeBalance />
+    </Box>
+  </Box>
+)
+
+export default StakeInput
