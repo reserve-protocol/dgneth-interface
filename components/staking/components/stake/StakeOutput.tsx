@@ -3,19 +3,21 @@ import {
   stakeAmountUsdAtom,
   stakeBalanceAtom,
   stakeOutputAtom,
+  tokenOutAtom,
+  tokenOutBalance,
 } from '../../atoms'
 import { Box, Text } from 'theme-ui'
-import { STAKE_TOKEN } from '../../constants'
 import TokenLogo from '../../../zap/components/icons/TokenLogo'
 import { formatCurrency } from '../../../zap/utils'
 import { borderRadius } from '../../../zap/theme'
 
 const StakeBalance = () => {
-  const balance = useAtomValue(stakeBalanceAtom)
+  const tokenOut = useAtomValue(tokenOutAtom)
+  const balance = useAtomValue(tokenOutBalance)
 
   return (
     <Box ml="auto" variant="layout.verticalAlign" sx={{ flexShrink: 0 }}>
-      <TokenLogo width={16} src={STAKE_TOKEN.logo} />
+      <TokenLogo width={16} src={tokenOut.logo} />
       <Text ml="2" variant="legend">
         Balance
       </Text>
@@ -30,6 +32,7 @@ const StakeBalance = () => {
 }
 
 const StakeOutput = () => {
+  const tokenOut = useAtomValue(tokenOutAtom)
   const stAmount = useAtomValue(stakeOutputAtom)
   const usdAmount = useAtomValue(stakeAmountUsdAtom)
 
@@ -49,7 +52,7 @@ const StakeOutput = () => {
       >
         <Text>{formatCurrency(stAmount)}</Text>
         <Text variant="legend" ml="2">
-          {STAKE_TOKEN.symbol}
+          {tokenOut.symbol}
         </Text>
       </Box>
       <Box variant="layout.verticalAlign">

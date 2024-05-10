@@ -6,12 +6,18 @@ import TokenLogo from '../../../zap/components/icons/TokenLogo'
 import NumericalInput from '../../../zap/components/numerical-input/NumericalInput'
 import { borderRadius } from '../../../zap/theme'
 import { formatCurrency } from '../../../zap/utils'
-import { balanceAtom, priceAtom, stakeAmountAtom } from '../../atoms'
-import { TOKEN } from '../../constants'
+import {
+  isStakingAtom,
+  priceAtom,
+  stakeAmountAtom,
+  tokenInAtom,
+  tokenInBalance,
+} from '../../atoms'
 import InputPostfix from './InputPostfix'
 
 const StakeInputField = () => {
   const [amount, setAmount] = useAtom(stakeAmountAtom)
+  const tokenIn = useAtomValue(tokenInAtom)
 
   useEffect(() => {
     return () => {
@@ -23,11 +29,11 @@ const StakeInputField = () => {
     <Box sx={{ position: 'relative', zIndex: 0 }}>
       <NumericalInput
         variant="transparent"
-        placeholder={`0 ${TOKEN.symbol}`}
+        placeholder={`0 ${tokenIn.symbol}`}
         value={amount}
         onChange={setAmount}
       />
-      {!!amount && <InputPostfix amount={amount} symbol={TOKEN.symbol} />}
+      {!!amount && <InputPostfix amount={amount} symbol={tokenIn.symbol} />}
     </Box>
   )
 }
@@ -52,12 +58,13 @@ const StakeUsdAmount = () => {
 }
 
 const StakeBalance = () => {
-  const balance = useAtomValue(balanceAtom)
+  const tokenIn = useAtomValue(tokenInAtom)
+  const balance = useAtomValue(tokenInBalance)
   const setAmount = useSetAtom(stakeAmountAtom)
 
   return (
     <Box ml="auto" variant="layout.verticalAlign" sx={{ flexShrink: 0 }}>
-      <TokenLogo width={16} src={TOKEN.logo} />
+      <TokenLogo width={16} src={tokenIn.logo} />
       <Text ml="2" variant="legend">
         Balance
       </Text>
@@ -78,24 +85,27 @@ const StakeBalance = () => {
   )
 }
 
-const StakeInput = () => (
-  <Box
-    sx={{
-      overflow: 'hidden',
-      backgroundColor: 'focusBox',
-      borderRadius: borderRadius.boxes,
-    }}
-    p={3}
-    mb={2}
-  >
-    <Text>You stake:</Text>
-    <StakeInputField />
+const StakeInput = () => {
+  const isStaking = useAtomValue(isStakingAtom)
 
-    <Box variant="layout.verticalAlign">
-      <StakeUsdAmount />
-      <StakeBalance />
+  return (
+    <Box
+      sx={{
+        overflow: 'hidden',
+        backgroundColor: 'focusBox',
+        borderRadius: borderRadius.boxes,
+      }}
+      p={3}
+      mb={2}
+    >
+      <Text>{isStaking ? 'You stake:' : 'You unstake'}</Text>
+      <StakeInputField />
+
+      <Box variant="layout.verticalAlign">
+        <StakeUsdAmount />
+        <StakeBalance />
+      </Box>
     </Box>
-  </Box>
-)
-
+  )
+}
 export default StakeInput

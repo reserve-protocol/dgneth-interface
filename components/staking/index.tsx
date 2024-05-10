@@ -4,6 +4,8 @@ import { Box, Card } from 'theme-ui'
 import TabMenu from '../zap/components/tab-menu'
 import Stake from './components/stake'
 import Unstake from './components/unstake'
+import { isStakingAtom } from './atoms'
+import { useAtom } from 'jotai'
 
 const MenuOptions = [
   { key: 1, label: 'Stake', icon: <Plus size={16} /> },
@@ -29,12 +31,12 @@ const Header = ({
 }
 
 const Staking = () => {
-  const [isStaking, setIsStaking] = useState(true)
+  const [isStaking, setIsStaking] = useAtom(isStakingAtom)
 
   return (
     <Box p="0" sx={{ flexGrow: 1 }}>
       <Header isStaking={isStaking} onChange={setIsStaking} />
-      {isStaking ? <Stake /> : <Unstake />}
+      <Stake />
     </Box>
   )
 }
