@@ -8,6 +8,8 @@ export const stakeRateAtom = atom(0)
 export const balanceAtom = atom({ value: 0n, formatted: '0' })
 export const stakeBalanceAtom = atom({ value: 0n, formatted: '0' })
 export const isStakingAtom = atom(true)
+export const tokenSupplyAtom = atom(0)
+export const stakeTokenSupplyAtom = atom(0)
 //
 // Prevents more than 18 decimals
 export function safeParseEther(value: string, decimals = 18): bigint {

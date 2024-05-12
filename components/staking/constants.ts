@@ -1,4 +1,14 @@
-export const TOKEN = {
+import { Address } from 'viem'
+
+interface IToken {
+  address: Address
+  symbol: string
+  name: string
+  decimals: number
+  logo: string
+}
+
+export const TOKEN: IToken = {
   address: '0x',
   symbol: 'dgnETH',
   name: 'degenETH',
@@ -6,7 +16,7 @@ export const TOKEN = {
   logo: '/svgs/dgneth.svg',
 }
 
-export const STAKE_TOKEN = {
+export const STAKE_TOKEN: IToken = {
   address: '0x',
   symbol: 'sdgnETH',
   name: 'staked degenETH',

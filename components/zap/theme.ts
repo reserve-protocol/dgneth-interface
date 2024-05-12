@@ -82,13 +82,13 @@ export const mediumButton = {
 
 export const colors = {
   base: '#2852F5',
-  text: '#292929',
+  text: '#000',
   shadow: 'rgba(0, 0, 0, 0.05)',
   invertedText: '#FFFFFF',
   secondaryText: '#666666',
   lightText: '#808080',
-  // background: '#181818',
-  background: '#fff',
+  background: '#181818',
+  // background: '#fff',
   backgroundNested: '#FEFBF8',
   focusedBackground: '#FFFFFF',
   inputBackground: '#E5E5E5',
@@ -368,12 +368,11 @@ export const theme: Theme = {
     },
     bordered: {
       ...baseButton,
-      outline: '1px solid',
-      borderColor: 'primary',
-      color: 'accentInverted',
+      outline: '4px solid',
+      color: '#000',
       backgroundColor: 'transparent',
       '&:hover': {
-        backgroundColor: 'focusedBackground',
+        color: 'secondary',
       },
     },
     transparent: {
