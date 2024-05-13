@@ -1,11 +1,10 @@
-import { erc20ABI } from 'wagmi'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
+import { erc20Abi, Address } from 'viem'
 import {
-  Address,
-  useContractRead,
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction,
+  useReadContract,
+  useWriteContract,
+  useWaitForTransactionReceipt,
+  useSimulateContract,
 } from 'wagmi'
 
 export interface Allowance {
@@ -27,10 +26,10 @@ export const useApproval = (
     data,
     isLoading: validatingAllowance,
     error: allowanceError,
-  } = useContractRead(
+  } = useReadContract(
     allowance && account && !disable
       ? {
-          abi: erc20ABI,
+          abi: erc20Abi,
           functionName: 'allowance',
           address: allowance.token,
           args: [account, allowance.spender],
@@ -42,11 +41,11 @@ export const useApproval = (
   const hasAllowance =
     account && allowance && !disable ? (data ?? 0n) >= allowance.amount : false
 
-  const { config } = usePrepareContractWrite(
+  const { data: approvalSimulation } = useSimulateContract(
     allowance && !hasAllowance
       ? {
           address: allowance.token,
-          abi: erc20ABI,
+          abi: erc20Abi,
           functionName: 'approve',
           args: [allowance.spender, allowance.amount],
         }
@@ -55,16 +54,22 @@ export const useApproval = (
 
   const {
     data: writeData,
-    write: approve,
-    isLoading: approving,
+    writeContract,
     error: approvalError,
-  } = useContractWrite(config)
+  } = useWriteContract()
+
   const { status: approvalStatus, isLoading: validatingApproval } =
-    useWaitForTransaction({
-      hash: writeData?.hash,
+    useWaitForTransactionReceipt({
+      hash: writeData,
     })
 
-  const isLoading = approving || validatingApproval
+  const approve = useCallback(() => {
+    if (approvalSimulation?.request) {
+      writeContract(approvalSimulation?.request)
+    }
+  }, [approvalSimulation])
+
+  const isLoading = !Boolean(approvalSimulation?.request) || validatingApproval
   const isSuccess = approvalStatus === 'success'
   const error = allowanceError || approvalError
 
