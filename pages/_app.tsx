@@ -12,12 +12,12 @@ import { ThemeUIProvider } from 'theme-ui'
 import { WagmiProvider } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 import { theme } from '../components/zap/theme'
-import Footer from '../components/Footer'
 
 const config = getDefaultConfig({
   appName: 'degenETH Interface',
   projectId: 'YOUR_PROJECT_ID',
   chains: [mainnet],
+  ssr: true
 })
 
 const client = new QueryClient()

@@ -1,6 +1,8 @@
 import { useAtom } from 'jotai'
-import { Box, Link } from 'theme-ui'
+import { Box, Link, Text } from 'theme-ui'
 import { isStakingAtom } from '../atoms'
+import CheckCircle from '../../../components/icons/CheckCircle'
+import LinkCircle from '../../../components/icons/LinkCircle'
 
 const Sidebar = () => {
   const [isStaking, setStaking] = useAtom(isStakingAtom)
@@ -37,9 +39,18 @@ const Sidebar = () => {
         </Box>
       </Box>
       <Box sx={{ position: 'absolute', bottom: 16 }}>
-        <Link>Earn</Link>
-
-        <Link>Learn more</Link>
+        <Link>
+          <Box variant="layout.verticalAlign">
+            <Text mr="2">Earn</Text>
+            <LinkCircle />
+          </Box>
+        </Link>
+        <Link mt="2">
+          <Box variant="layout.verticalAlign">
+            <Text mr="2">Learn more</Text>
+            <LinkCircle />
+          </Box>
+        </Link>
       </Box>
     </Box>
   )

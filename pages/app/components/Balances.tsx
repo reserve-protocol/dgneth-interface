@@ -1,6 +1,17 @@
+import { useAtomValue } from 'jotai'
 import { Box, Card, Flex, Text } from 'theme-ui'
+import {
+  balanceAtom,
+  priceAtom,
+  stakeBalanceAtom,
+} from '../../../components/staking/atoms'
+import { formatCurrency } from '../../../components/zap/utils'
 
 const Balances = () => {
+  const balance = useAtomValue(balanceAtom)
+  const stakeBalance = useAtomValue(stakeBalanceAtom)
+  const price = useAtomValue(priceAtom)
+
   return (
     <Card sx={{ flexGrow: 1 }}>
       <Text>Your dgnETH</Text>
@@ -11,10 +22,10 @@ const Balances = () => {
       >
         <Flex>
           <Text>In wallet</Text>
-          <Text ml="auto">$12K</Text>
+          <Text ml="auto">${formatCurrency(+balance.formatted * price)}</Text>
         </Flex>
         <Flex>
-          <Text variant="accent">4.2</Text>
+          <Text variant="accent">{formatCurrency(+balance.formatted)}</Text>
           <Text variant="muted" ml="auto">
             4.5 ETH
           </Text>
@@ -24,7 +35,7 @@ const Balances = () => {
           <Text ml="auto">$12K</Text>
         </Flex>
         <Flex>
-          <Text>12</Text>
+          <Text>{formatCurrency(+stakeBalance.formatted)}</Text>
           <Text variant="muted" ml="auto">
             13 ETH
           </Text>

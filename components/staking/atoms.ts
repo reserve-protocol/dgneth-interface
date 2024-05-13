@@ -7,7 +7,7 @@ export const priceAtom = atom(0)
 export const stakeRateAtom = atom(0)
 export const balanceAtom = atom({ value: 0n, formatted: '0' })
 export const stakeBalanceAtom = atom({ value: 0n, formatted: '0' })
-export const isStakingAtom = atom(true)
+export const isStakingAtom = atom(false)
 export const tokenSupplyAtom = atom(0)
 export const stakeTokenSupplyAtom = atom(0)
 //
