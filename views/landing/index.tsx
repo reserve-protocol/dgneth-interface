@@ -1,9 +1,9 @@
 import { Box, Button, Flex, Image, Link as UILink, Text } from 'theme-ui'
-import Footer from '../components/Footer'
-import Brand from '../components/icons/Brand'
-import DegenFork from '../components/icons/DegenFork'
-import DegenStar from '../components/icons/DegenStar'
-import Powered from '../components/icons/Powered'
+import Footer from '../../components/Footer'
+import Brand from '../../components/icons/Brand'
+import DegenFork from '../../components/icons/DegenFork'
+import DegenStar from '../../components/icons/DegenStar'
+import Powered from '../../components/icons/Powered'
 import Link from 'next/link'
 
 const menuItems = [

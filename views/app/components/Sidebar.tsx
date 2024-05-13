@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai'
 import { Box, Link, Text } from 'theme-ui'
-import { isStakingAtom } from '../atoms'
+import { isStakingAtom } from '../state/atoms'
 import CheckCircle from '../../../components/icons/CheckCircle'
 import LinkCircle from '../../../components/icons/LinkCircle'
 

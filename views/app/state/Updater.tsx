@@ -7,8 +7,8 @@ import {
   stakeBalanceAtom,
   stakeTokenSupplyAtom,
   tokenSupplyAtom,
-} from '../../components/staking/atoms'
-import { STAKE_TOKEN, TOKEN } from '../../components/staking/constants'
+} from '../../../components/staking/atoms'
+import { STAKE_TOKEN, TOKEN } from '../../../components/staking/constants'
 
 const Updater = () => {
   // Setters
