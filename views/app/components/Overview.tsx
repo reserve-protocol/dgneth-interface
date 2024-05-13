@@ -17,6 +17,7 @@ const Overview = () => {
         borderLeft: '1px solid',
         flexShrink: 0,
         borderColor: 'secondary',
+        display: ['none', 'block'],
       }}
     >
       <Text mb="1" variant="bold">

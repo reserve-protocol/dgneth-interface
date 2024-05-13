@@ -55,7 +55,7 @@ const ActionContainer = () => {
 }
 
 const Stats = () => (
-  <Flex p={4} sx={{ gap: 3 }}>
+  <Flex p={4} sx={{ gap: 3, flexWrap: 'wrap' }}>
     <StakingAPY />
     <Balances />
     <Box sx={{ flexGrow: 1.5 }}>
@@ -66,7 +66,7 @@ const Stats = () => (
 )
 
 const Container = () => (
-  <Card p={0} mx={4} sx={{ display: 'flex' }}>
+  <Card p={0} mx={4} sx={{ display: 'flex', flexDirection: ['column', 'row'] }}>
     <Sidebar />
     <ActionContainer />
   </Card>
