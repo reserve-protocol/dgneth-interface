@@ -13,6 +13,7 @@ import Sidebar from './components/Sidebar'
 import StakingAPY from './components/StakingAPY'
 import Supply from './components/Supply'
 import { isStakingAtom } from './state/atoms'
+import YieldCalculator from './components/YieldCalculator'
 
 const IssuanceContainer = () => (
   <Flex
@@ -40,7 +41,7 @@ const StakingContainer = () => (
     }}
   >
     <Staking />
-    <Overview />
+    <YieldCalculator />
   </Flex>
 )
 

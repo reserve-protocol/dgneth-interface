@@ -44,7 +44,7 @@ const baseBadge = {
 
 export const baseInput = {
   fontFamily: 'body',
-  borderColor: 'inputBorder',
+  borderColor: 'focusBox',
   backgroundColor: 'background',
   outline: 'none',
   padding: '14px',

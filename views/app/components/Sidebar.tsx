@@ -54,7 +54,7 @@ const Sidebar = () => {
           bottom: [0, 16],
           gap: 2,
         }}
-        p={[4]}
+        p={[4, 0]}
         ml={['auto', 0]}
       >
         <Link>
