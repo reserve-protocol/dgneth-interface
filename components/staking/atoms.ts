@@ -1,16 +1,16 @@
 import { atom } from 'jotai'
 import { parseUnits } from 'viem'
 import { STAKE_TOKEN, TOKEN } from './constants'
+import {
+  balanceAtom,
+  priceAtom,
+  stakeBalanceAtom,
+  stakeRateAtom,
+} from '../../views/app/state/atoms'
 
 // General state atoms
-export const priceAtom = atom(0)
-export const stakeRateAtom = atom(0)
-export const balanceAtom = atom({ value: 0n, formatted: '0' })
-export const stakeBalanceAtom = atom({ value: 0n, formatted: '0' })
 export const isStakingAtom = atom(false)
-export const tokenSupplyAtom = atom(0)
-export const stakeTokenSupplyAtom = atom(0)
-//
+
 // Prevents more than 18 decimals
 export function safeParseEther(value: string, decimals = 18): bigint {
   let safeValue = ''

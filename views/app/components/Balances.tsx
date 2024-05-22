@@ -1,16 +1,20 @@
 import { useAtomValue } from 'jotai'
 import { Box, Card, Flex, Text } from 'theme-ui'
+import { formatCurrency } from '../../../components/zap/utils'
 import {
   balanceAtom,
   priceAtom,
+  rTokenTargetPriceAtom,
   stakeBalanceAtom,
-} from '../../../components/staking/atoms'
-import { formatCurrency } from '../../../components/zap/utils'
+  stakeRateAtom,
+} from '../state/atoms'
 
 const Balances = () => {
   const balance = useAtomValue(balanceAtom)
   const stakeBalance = useAtomValue(stakeBalanceAtom)
   const price = useAtomValue(priceAtom)
+  const rate = useAtomValue(stakeRateAtom)
+  const peg = useAtomValue(rTokenTargetPriceAtom)
 
   return (
     <Card sx={{ flexGrow: 1 }}>
@@ -27,17 +31,19 @@ const Balances = () => {
         <Flex>
           <Text variant="accent">{formatCurrency(+balance.formatted)}</Text>
           <Text variant="muted" ml="auto">
-            4.5 ETH
+            {formatCurrency(+balance.formatted * peg.price)} ETH
           </Text>
         </Flex>
         <Flex mt={3}>
           <Text>Staked</Text>
-          <Text ml="auto">$12K</Text>
+          <Text ml="auto">
+            ${formatCurrency((+stakeBalance.formatted / rate) * price)}
+          </Text>
         </Flex>
         <Flex>
           <Text>{formatCurrency(+stakeBalance.formatted)}</Text>
           <Text variant="muted" ml="auto">
-            13 ETH
+            {formatCurrency((+stakeBalance.formatted / rate) * peg.price)} ETH
           </Text>
         </Flex>
       </Box>

@@ -1,7 +1,6 @@
 import { useAtomValue } from 'jotai'
 import {
   stakeAmountUsdAtom,
-  stakeBalanceAtom,
   stakeOutputAtom,
   tokenOutAtom,
   tokenOutBalance,

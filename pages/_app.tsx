@@ -9,7 +9,7 @@ import {
 } from '@rainbow-me/rainbowkit'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeUIProvider } from 'theme-ui'
-import { WagmiProvider } from 'wagmi'
+import { WagmiProvider, http } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 import { theme } from '../components/zap/theme'
 
@@ -17,8 +17,15 @@ const config = getDefaultConfig({
   appName: 'degenETH Interface',
   projectId: 'YOUR_PROJECT_ID',
   chains: [mainnet],
-  ssr: true
+  transports: process.env.NEXT_PUBLIC_RPC
+    ? {
+        [mainnet.id]: http(process.env.NEXT_PUBLIC_RPC),
+      }
+    : undefined,
+  ssr: true,
 })
+
+console.log('config', config)
 
 const client = new QueryClient()
 

@@ -8,12 +8,12 @@ import { borderRadius } from '../../../zap/theme'
 import { formatCurrency } from '../../../zap/utils'
 import {
   isStakingAtom,
-  priceAtom,
   stakeAmountAtom,
   tokenInAtom,
   tokenInBalance,
 } from '../../atoms'
 import InputPostfix from './InputPostfix'
+import { priceAtom } from '../../../../views/app/state/atoms'
 
 const StakeInputField = () => {
   const [amount, setAmount] = useAtom(stakeAmountAtom)

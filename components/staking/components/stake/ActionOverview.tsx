@@ -2,8 +2,8 @@ import { Box, BoxProps, Spinner, Text } from 'theme-ui'
 import GasIcon from '../../../zap/components/icons/GasIcon'
 import { formatCurrency } from '../../../zap/utils'
 import { useAtomValue } from 'jotai'
-import { stakeRateAtom } from '../../atoms'
 import { STAKE_TOKEN, TOKEN } from '../../constants'
+import { stakeRateAtom } from '../../../../views/app/state/atoms'
 
 interface IGasEstimate extends BoxProps {
   total: number
@@ -40,7 +40,7 @@ const ExchangeRate = () => {
   return (
     <Box mt={4} mb={3}>
       <Text>
-        1 {STAKE_TOKEN.symbol} = {formatCurrency(rate, 5)} {TOKEN.symbol}
+        1 {TOKEN.symbol} = {formatCurrency(rate, 5)} {STAKE_TOKEN.symbol}
       </Text>
     </Box>
   )
