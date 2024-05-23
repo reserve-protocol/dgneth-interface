@@ -1,9 +1,12 @@
 import { Box, BoxProps, Text, Slider, Badge, Card, Flex } from 'theme-ui'
 import { STAKE_TOKEN } from '../../../components/staking/constants'
 import NumericalInput from '../../../components/zap/components/numerical-input/NumericalInput'
-import { atom, useAtom } from 'jotai'
+import { atom, useAtom, useAtomValue } from 'jotai'
+import { priceAtom, stakeApyAtom } from '../state/atoms'
+import { formatCurrency } from '../../../components/zap/utils'
 
 const amountAtom = atom('')
+const timeFrameAtom = atom(6)
 
 const AmountInput = (props: BoxProps) => {
   const [amount, setAmount] = useAtom(amountAtom)
@@ -17,6 +20,8 @@ const AmountInput = (props: BoxProps) => {
 }
 
 const Timeframe = (props: BoxProps) => {
+  const [timeFrame, setTimeFrame] = useAtom(timeFrameAtom)
+
   return (
     <Box sx={{ fontSize: 1 }} {...props}>
       <Box variant="layout.verticalAlign">
@@ -27,10 +32,15 @@ const Timeframe = (props: BoxProps) => {
           px="2"
           sx={{ backgroundColor: 'secondary', color: '#fff', fontWeight: 400 }}
         >
-          4 months
+          {timeFrame} months
         </Badge>
       </Box>
-      <Slider defaultValue={25} />
+      <Slider
+        min={1}
+        max={12}
+        value={timeFrame}
+        onChange={(e) => setTimeFrame(e.target.value as any)}
+      />
       <Box variant="layout.verticalAlign">
         <Text>1 month</Text>
         <Text ml="auto">1 year</Text>
@@ -40,24 +50,32 @@ const Timeframe = (props: BoxProps) => {
 }
 
 const YieldResults = (props: BoxProps) => {
+  const apy = useAtomValue(stakeApyAtom)
+  const amount = useAtomValue(amountAtom)
+  const timeFrame = useAtomValue(timeFrameAtom)
+  const price = useAtomValue(priceAtom)
+  const timeframeApy = 12 - timeFrame
+
+  const rewards = amount && apy ? Number(amount) * (timeframeApy / 100) : 0
+
   return (
     <Box {...props}>
       <Text sx={{ fontSize: 1 }}>Results</Text>
       <Card>
         <Flex sx={{ alignItems: 'flex-end' }}>
           <Text variant="bold" sx={{ color: 'primary' }}>
-            0.000
+            {formatCurrency(+amount + rewards)}
           </Text>
           <Text ml="auto" sx={{ fontSize: 1 }}>
-            $0.00
+            ${formatCurrency((+amount + rewards) * price)}
           </Text>
         </Flex>
         <Flex mt={3} sx={{ alignItems: 'flex-end' }}>
           <Text variant="bold" sx={{ color: 'primary' }}>
-            +0.000
+            +{formatCurrency(rewards)}
           </Text>
           <Text ml="auto" sx={{ fontSize: 1 }}>
-            +$0.00
+            +${formatCurrency(rewards * price)}
           </Text>
         </Flex>
       </Card>
