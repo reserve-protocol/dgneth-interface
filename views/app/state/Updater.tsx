@@ -10,6 +10,7 @@ import {
 import { STAKE_TOKEN, TOKEN } from '../../../components/staking/constants'
 import StakingVault from '../../../abis/StakingVault'
 import {
+  accountAtom,
   balanceAtom,
   basketsNeededAtom,
   priceAtom,
@@ -45,6 +46,7 @@ const Updater = () => {
   const setExchangeRate = useSetAtom(stakeRateAtom)
   const setPrice = useSetAtom(priceAtom)
   const setBasketsNeeded = useSetAtom(basketsNeededAtom)
+  const setAccount = useSetAtom(accountAtom)
   // Getters
   const wallet = useAccount()
   const { data: blockNumber } = useBlockNumber({ watch: true })
@@ -137,6 +139,14 @@ const Updater = () => {
       setExchangeRate(+formatUnits(exchangeRate, STAKE_TOKEN.decimals))
     }
   }, [exchangeRate])
+
+  useEffect(() => {
+    if (wallet.address && wallet.chainId === 1) {
+      setAccount(wallet.address)
+    } else {
+      setAccount('')
+    }
+  }, [wallet])
 
   // Refresh data on block
   useEffect(() => {

@@ -3,7 +3,6 @@ import { Plus, Minus } from 'react-feather'
 import { Box, Card } from 'theme-ui'
 import TabMenu from '../zap/components/tab-menu'
 import Stake from './components/stake'
-import Unstake from './components/unstake'
 import { isStakingAtom } from './atoms'
 import { useAtom } from 'jotai'
 

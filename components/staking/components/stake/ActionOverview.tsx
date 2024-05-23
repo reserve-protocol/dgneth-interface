@@ -1,38 +1,21 @@
+import { useAtomValue } from 'jotai'
 import { Box, BoxProps, Spinner, Text } from 'theme-ui'
+import {
+  useEstimateFeesPerGas,
+  useEstimateGas,
+  useGasPrice,
+  useReadContract,
+  useSimulateContract,
+  type UseSimulateContractParameters,
+} from 'wagmi'
+import { stakeRateAtom } from '../../../../views/app/state/atoms'
 import GasIcon from '../../../zap/components/icons/GasIcon'
 import { formatCurrency } from '../../../zap/utils'
-import { useAtomValue } from 'jotai'
+import { transactionAtom } from '../../atoms'
 import { STAKE_TOKEN, TOKEN } from '../../constants'
-import { stakeRateAtom } from '../../../../views/app/state/atoms'
-
-interface IGasEstimate extends BoxProps {
-  total: number
-  breakdown?: { label: string; value: number }[]
-}
-
-const GasEstimate = ({ total, breakdown, ...props }: IGasEstimate) => {
-  return (
-    <Box variant="layout.verticalAlign" {...props}>
-      <GasIcon />
-      <Text ml="2" mr={1}>
-        Estimated gas cost:
-      </Text>
-      {total ? (
-        <Text variant="bold">${formatCurrency(total, 3)}</Text>
-      ) : (
-        <Spinner size={16} />
-      )}
-    </Box>
-  )
-}
-
-const Gas = () => {
-  // if (!amount) {
-  //   return null
-  // }
-
-  return <GasEstimate total={0} ml="auto" />
-}
+import { formatEther, formatUnits } from 'viem'
+import { useMemo } from 'react'
+import GasEstimate from '../GasEstimate'
 
 const ExchangeRate = () => {
   const rate = useAtomValue(stakeRateAtom)
@@ -50,7 +33,7 @@ export const ActionOverview = () => {
   return (
     <Box variant="layout.verticalAlign">
       <ExchangeRate />
-      <Gas />
+      <GasEstimate />
     </Box>
   )
 }

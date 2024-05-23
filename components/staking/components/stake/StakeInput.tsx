@@ -7,6 +7,7 @@ import NumericalInput from '../../../zap/components/numerical-input/NumericalInp
 import { borderRadius } from '../../../zap/theme'
 import { formatCurrency } from '../../../zap/utils'
 import {
+  debouncedStakeAmountAtom,
   isStakingAtom,
   stakeAmountAtom,
   tokenInAtom,
@@ -16,7 +17,8 @@ import InputPostfix from './InputPostfix'
 import { priceAtom } from '../../../../views/app/state/atoms'
 
 const StakeInputField = () => {
-  const [amount, setAmount] = useAtom(stakeAmountAtom)
+  const amount = useAtomValue(stakeAmountAtom)
+  const setAmount = useSetAtom(debouncedStakeAmountAtom)
   const tokenIn = useAtomValue(tokenInAtom)
 
   useEffect(() => {
@@ -60,7 +62,7 @@ const StakeUsdAmount = () => {
 const StakeBalance = () => {
   const tokenIn = useAtomValue(tokenInAtom)
   const balance = useAtomValue(tokenInBalance)
-  const setAmount = useSetAtom(stakeAmountAtom)
+  const setAmount = useSetAtom(debouncedStakeAmountAtom)
 
   return (
     <Box ml="auto" variant="layout.verticalAlign" sx={{ flexShrink: 0 }}>

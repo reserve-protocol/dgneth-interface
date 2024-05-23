@@ -1,5 +1,11 @@
 import { atom } from 'jotai'
+import { loadable } from 'jotai/utils'
+import { readContract } from 'viem/actions'
+import FacadeRead from '../../../components/zap/abis/FacadeRead'
 
+export const FACADE_ADDRESS = '0x2815c24F49D5c5316Ffd0952dB0EFe68b0d5F132'
+
+export const accountAtom = atom('')
 export const isStakingAtom = atom(false)
 export const priceAtom = atom(0)
 export const stakeRateAtom = atom(1)
@@ -21,4 +27,19 @@ export const rTokenTargetPriceAtom = atom((get) => {
   }
 
   return { price: 0, supply: 0 }
+})
+
+export const underlyingApyAtom = atom(0)
+
+// (dgnETH-total-supply * underlying-apy) / sdgnETH-total-supply
+export const stakeApyAtom = atom((get) => {
+  const underlyingApy = get(underlyingApyAtom)
+  const supply = get(tokenSupplyAtom)
+  const stakeSupply = get(stakeTokenSupplyAtom)
+
+  if (supply && underlyingApy && stakeSupply) {
+    return (supply * underlyingApy) / stakeSupply // Naive calculation for stake supply
+  }
+
+  return underlyingApy
 })

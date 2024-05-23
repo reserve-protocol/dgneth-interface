@@ -1,15 +1,18 @@
 import { atom } from 'jotai'
-import { parseUnits } from 'viem'
+import { Address, parseUnits } from 'viem'
 import { STAKE_TOKEN, TOKEN } from './constants'
 import {
+  accountAtom,
   balanceAtom,
   priceAtom,
   stakeBalanceAtom,
   stakeRateAtom,
 } from '../../views/app/state/atoms'
+import atomWithDebounce from './atomWithDebounce'
+import StakingVault from '../../abis/StakingVault'
 
 // General state atoms
-export const isStakingAtom = atom(false)
+export const isStakingAtom = atom(true)
 
 // Prevents more than 18 decimals
 export function safeParseEther(value: string, decimals = 18): bigint {
@@ -28,7 +31,10 @@ export function safeParseEther(value: string, decimals = 18): bigint {
 export const isAmountValid = (value: bigint, max: bigint) =>
   value > 0n && value <= max
 
-export const stakeAmountAtom = atom('')
+export const {
+  debouncedValueAtom: debouncedStakeAmountAtom,
+  currentValueAtom: stakeAmountAtom,
+} = atomWithDebounce('')
 export const stakeAmountUsdAtom = atom((get) => {
   const amount = get(stakeAmountAtom)
   const price = get(priceAtom)
@@ -38,13 +44,18 @@ export const stakeAmountUsdAtom = atom((get) => {
 export const stakeOutputAtom = atom((get) => {
   const amount = get(stakeAmountAtom)
   const rate = get(stakeRateAtom)
+  const isStaking = get(isStakingAtom)
 
-  return amount && rate ? Number(amount) / rate : 0
+  return amount && rate
+    ? isStaking
+      ? Number(amount) * rate
+      : Number(amount) / rate
+    : 0
 })
 
 export const isValidStakeAmountAtom = atom((get) => {
   return isAmountValid(
-    safeParseEther(get(stakeAmountAtom) || '0'),
+    safeParseEther(get(debouncedStakeAmountAtom) || '0'),
     get(balanceAtom).value
   )
 })
@@ -62,5 +73,36 @@ export const tokenInBalance = atom((get) => {
 })
 
 export const tokenOutBalance = atom((get) => {
-  return !get(isStakingAtom) ? get(stakeBalanceAtom) : get(balanceAtom)
+  return get(isStakingAtom) ? get(stakeBalanceAtom) : get(balanceAtom)
+})
+
+export const transactionAtom = atom((get) => {
+  const amount = get(debouncedStakeAmountAtom)
+  const wallet = get(accountAtom)
+  const isValid = get(isValidStakeAmountAtom)
+  const isStaking = get(isStakingAtom)
+
+  if (!wallet || !isValid) {
+    return undefined
+  }
+
+  if (isStaking) {
+    return {
+      abi: StakingVault,
+      address: STAKE_TOKEN.address,
+      functionName: 'deposit' as 'deposit',
+      args: [safeParseEther(amount), wallet as Address] as [bigint, Address],
+    }
+  } else {
+    return {
+      abi: StakingVault,
+      address: STAKE_TOKEN.address,
+      functionName: 'redeem' as 'redeem',
+      args: [
+        safeParseEther(amount, 21),
+        wallet as Address,
+        wallet as Address,
+      ] as [bigint, Address, Address],
+    }
+  }
 })

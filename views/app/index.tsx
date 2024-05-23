@@ -4,7 +4,6 @@ import { Box, Card, Flex } from 'theme-ui'
 import Footer from '../../components/Footer'
 import Staking from '../../components/staking'
 import RTokenZapIssuance from '../../components/zap/RTokenZapIssuance'
-import Updater from './state/Updater'
 import Balances from './components/Balances'
 import Earnings from './components/Earnings'
 import Header from './components/Header'
@@ -12,11 +11,10 @@ import Overview from './components/Overview'
 import Sidebar from './components/Sidebar'
 import StakingAPY from './components/StakingAPY'
 import Supply from './components/Supply'
-import { isStakingAtom } from './state/atoms'
 import YieldCalculator from './components/YieldCalculator'
-import { useReadContract } from 'wagmi'
-import StakingVault from '../../abis/StakingVault'
-import { formatUnits, parseUnits } from 'viem'
+import ApyUpdater from './state/ApyUpdater'
+import Updater from './state/Updater'
+import { isStakingAtom } from './state/atoms'
 
 const IssuanceContainer = () => (
   <Flex
@@ -76,27 +74,14 @@ const Container = () => (
   </Card>
 )
 
-const Test = () => {
-  const data = useReadContract({
-    address: '0xbc71f5687cfd36f64ae6b4549186ee3a6ee259a4',
-    abi: StakingVault,
-    functionName: 'previewDeposit',
-    args: [parseUnits('1', 6)],
-  })
-
-  console.log('data', data?.data)
-
-  return null
-}
-
 const App: NextPage = () => (
   <Box variant="layout.wrapper">
-    <Test />
     <Header />
     <Stats />
     <Container />
     <Footer mt={7} mx={7} />
     <Updater />
+    <ApyUpdater />
   </Box>
 )
 
