@@ -1,4 +1,9 @@
 import { useAtomValue, useSetAtom } from 'jotai'
+import { useCallback, useMemo } from 'react'
+import { Box, BoxProps, Text } from 'theme-ui'
+import TokenLogo from '../../../zap/components/icons/TokenLogo'
+import Modal from '../../../zap/components/modal'
+import { formatCurrency } from '../../../zap/utils'
 import {
   debouncedStakeAmountAtom,
   isStakingAtom,
@@ -8,14 +13,9 @@ import {
   tokenInAtom,
   tokenOutAtom,
 } from '../../atoms'
-import { BoxProps, Box, Text } from 'theme-ui'
-import TokenLogo from '../../../zap/components/icons/TokenLogo'
-import { formatCurrency } from '../../../zap/utils'
-import { useCallback, useMemo } from 'react'
 import { STAKE_TOKEN } from '../../constants'
-import Modal from '../../../zap/components/modal'
-import GasEstimate from '../GasEstimate'
 import ConfirmStakeButton from './ConfirmStakeButton'
+import ConfirmUnstakeButton from './ConfrimUnstakeButton'
 
 interface IAmountPreview extends BoxProps {
   title: string
@@ -79,16 +79,21 @@ const AmountsPreview = () => {
 
 const StakeModal = ({ onClose }: { onClose(): void }) => {
   const setAmount = useSetAtom(debouncedStakeAmountAtom)
+  const isStaking = useAtomValue(isStakingAtom)
   const handleClose = useCallback(() => {
     setAmount('')
     onClose()
   }, [setAmount])
 
   return (
-    <Modal title={`Review stake`} onClose={handleClose} width={440}>
+    <Modal
+      title={isStaking ? 'Review stake' : 'Review unstake'}
+      onClose={handleClose}
+      width={440}
+    >
       <AmountsPreview />
       <Box mt={3} />
-      <ConfirmStakeButton />
+      {isStaking ? <ConfirmStakeButton /> : <ConfirmUnstakeButton />}
     </Modal>
   )
 }

@@ -57,9 +57,7 @@ const ConfirmStakeButton = () => {
     allowance >= (transaction.args[0] as bigint)
 
   const handleApprove = () => {
-    console.log('transaction', transaction)
     if (transaction) {
-      console.log('approve')
       approval({
         abi: erc20Abi,
         address: TOKEN.address,

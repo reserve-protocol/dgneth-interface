@@ -2,11 +2,12 @@ import { useCallback, useState } from 'react'
 import { useAtomValue } from 'jotai'
 import Button from '../../../zap/components/button'
 import { TOKEN } from '../../constants'
-import { isValidStakeAmountAtom } from '../../atoms'
+import { isStakingAtom, isValidStakeAmountAtom } from '../../atoms'
 import StakeModal from './StakeModal'
 
 const StakeButton = () => {
   const [isOpen, setOpen] = useState(false)
+  const isStaking = useAtomValue(isStakingAtom)
   const isValid = useAtomValue(isValidStakeAmountAtom)
 
   const handleOpen = useCallback(() => {
@@ -17,7 +18,7 @@ const StakeButton = () => {
   return (
     <>
       <Button fullWidth disabled={!isValid} onClick={handleOpen}>
-        Stake {TOKEN.symbol}
+        {isStaking ? 'Stake' : 'Unstake'} {TOKEN.symbol}
       </Button>
       {isOpen && <StakeModal onClose={handleClose} />}
     </>
