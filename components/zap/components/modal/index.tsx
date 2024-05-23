@@ -75,11 +75,14 @@ const Header = ({ title, onClose, hideCloseButton }: ModalProps) => {
         </Text>
         {!!onClose && (
           <Button
+            p={1}
             sx={{ position: 'absolute', right: 0, top: 0 }}
-            variant="circle"
+            // variant="circle"
             onClick={onClose}
           >
-            <X />
+            <Box variant="layout.verticalAlign">
+              <X />
+            </Box>
           </Button>
         )}
       </Flex>

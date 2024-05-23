@@ -120,7 +120,7 @@ const Updater = () => {
       setBalance({ value: balances[0], formatted: formatEther(balances[0]) })
       setStakeBalance({
         value: balances[1],
-        formatted: formatEther(balances[1]),
+        formatted: formatUnits(balances[1], STAKE_TOKEN.decimals),
       })
     }
   }, [balances])
@@ -130,7 +130,9 @@ const Updater = () => {
   useEffect(() => {
     if (supplies) {
       setTokenSupply(Number(formatEther(supplies[0])))
-      setStakeTokenSupply(Number(formatEther(supplies[1])))
+      setStakeTokenSupply(
+        Number(formatUnits(supplies[1], STAKE_TOKEN.decimals))
+      )
     }
   }, [supplies])
 

@@ -15,6 +15,7 @@ import { useCallback, useMemo } from 'react'
 import { STAKE_TOKEN } from '../../constants'
 import Modal from '../../../zap/components/modal'
 import GasEstimate from '../GasEstimate'
+import ConfirmStakeButton from './ConfirmStakeButton'
 
 interface IAmountPreview extends BoxProps {
   title: string
@@ -87,7 +88,7 @@ const StakeModal = ({ onClose }: { onClose(): void }) => {
     <Modal title={`Review stake`} onClose={handleClose} width={440}>
       <AmountsPreview />
       <Box mt={3} />
-      <GasEstimate />
+      <ConfirmStakeButton />
     </Modal>
   )
 }
