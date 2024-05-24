@@ -1,7 +1,4 @@
 import { atom } from 'jotai'
-import { loadable } from 'jotai/utils'
-import { readContract } from 'viem/actions'
-import FacadeRead from '../../../components/zap/abis/FacadeRead'
 
 export const FACADE_ADDRESS = '0x2815c24F49D5c5316Ffd0952dB0EFe68b0d5F132'
 

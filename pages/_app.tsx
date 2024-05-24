@@ -25,8 +25,6 @@ const config = getDefaultConfig({
   ssr: true,
 })
 
-console.log('config', config)
-
 const client = new QueryClient()
 
 function MyApp({ Component, pageProps }: AppProps) {

@@ -1,7 +1,6 @@
 import { useAtom } from 'jotai'
 import { Box, Flex, Link, Text } from 'theme-ui'
 import { isStakingAtom } from '../state/atoms'
-import CheckCircle from '../../../components/icons/CheckCircle'
 import LinkCircle from '../../../components/icons/LinkCircle'
 
 const Sidebar = () => {

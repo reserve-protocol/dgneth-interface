@@ -99,7 +99,7 @@ export const transactionAtom = atom((get) => {
       address: STAKE_TOKEN.address,
       functionName: 'redeem' as 'redeem',
       args: [
-        safeParseEther(amount, 21),
+        safeParseEther(amount, STAKE_TOKEN.decimals),
         wallet as Address,
         wallet as Address,
       ] as [bigint, Address, Address],
