@@ -2,9 +2,22 @@ import { useAtom } from 'jotai'
 import { Box, Flex, Link, Text } from 'theme-ui'
 import { isStakingAtom } from '../state/atoms'
 import LinkCircle from '../../../components/icons/LinkCircle'
+import { useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
 
 const Sidebar = () => {
   const [isStaking, setStaking] = useAtom(isStakingAtom)
+  const searchParams = useSearchParams()
+
+  const mode = searchParams.get('mode')
+
+  useEffect(() => {
+    if (!mode || mode === 'mint') {
+      setStaking(false)
+    } else {
+      setStaking(true)
+    }
+  }, [mode, setStaking])
 
   return (
     <Flex
