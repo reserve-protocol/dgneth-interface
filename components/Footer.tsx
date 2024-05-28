@@ -7,24 +7,24 @@ import Telegram from './icons/Telegram'
 const socials = [
   {
     name: 'Docs',
-    url: 'docs',
+    url: 'https://reserve.org/protocol/',
     logo: <Doc />,
   },
   {
     name: 'Twitter',
-    url: 'docs',
+    url: 'https://x.com/dgnETH_',
     logo: <X />,
   },
   {
     name: 'Discord',
-    url: 'discord',
+    url: 'https://discord.gg/CGgjr8qB',
     logo: <Discord />,
   },
-  {
-    name: 'Telegram',
-    url: 'docs',
-    logo: <Telegram />,
-  },
+  // {
+  //   name: 'Telegram',
+  //   url: 'docs',
+  //   logo: <Telegram />,
+  // },
 ]
 
 const Footer = (props: BoxProps) => {
@@ -32,7 +32,9 @@ const Footer = (props: BoxProps) => {
     <Box mx={[1, 4]} mb="3" variant="layout.verticalAlign" {...props}>
       <Box variant="layout.verticalAlign" sx={{ gap: 3 }}>
         {socials.map((social) => (
-          <Link key={social.name}>{social.logo}</Link>
+          <Link key={social.name} href={social.url} target="_blank">
+            {social.logo}
+          </Link>
         ))}
       </Box>
       <Text ml="auto" variant="muted">

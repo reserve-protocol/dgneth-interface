@@ -134,9 +134,14 @@ const Hero = () => (
         </Button>
       </Link>
 
-      <Button variant="bordered" px={4}>
-        Learn More
-      </Button>
+      <Link
+        href="https://app.reserve.org/ethereum/token/0xe6c43823269fbce5c6911d0924a8fc6920b723ce/overview"
+        target="_blank"
+      >
+        <Button variant="bordered" px={4}>
+          Learn More
+        </Button>
+      </Link>
     </Box>
   </Box>
 )

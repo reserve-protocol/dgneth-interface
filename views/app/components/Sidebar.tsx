@@ -69,13 +69,19 @@ const Sidebar = () => {
         p={[4, 0]}
         ml={['auto', 0]}
       >
-        <Link>
+        <Link
+          href="https://app.reserve.org/ethereum/token/0xe6c43823269fbce5c6911d0924a8fc6920b723ce/overview#section-2"
+          target="_blank"
+        >
           <Box variant="layout.verticalAlign">
             <Text mr="2">Earn</Text>
             <LinkCircle />
           </Box>
         </Link>
-        <Link>
+        <Link
+          href="https://app.reserve.org/ethereum/token/0xe6c43823269fbce5c6911d0924a8fc6920b723ce/overview"
+          target="_blank"
+        >
           <Box variant="layout.verticalAlign">
             <Text mr="2">Learn more</Text>
             <LinkCircle />
