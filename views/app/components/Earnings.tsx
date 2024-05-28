@@ -1,14 +1,97 @@
+import { useAtomValue } from 'jotai'
+import { useMemo } from 'react'
+import useSWR from 'swr'
 import { Box, Card, Text } from 'theme-ui'
+import { formatUnits } from 'viem'
+import { STAKE_TOKEN, TOKEN } from '../../../components/staking/constants'
+import { accountAtom, stakeRateAtom } from '../state/atoms'
+import Skeleton from 'react-loading-skeleton'
+
+const fetcher = (url: string, query: string) =>
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  })
+    .then((res) => res.json())
+    .then((json) => json.data)
 
 const Earnings = () => {
+  const wallet = useAtomValue(accountAtom)
+  const rate = useAtomValue(stakeRateAtom)
+
+  // TODO: replace param with wallet address
+  const query = `
+    {
+      deposits(where: {owner: "${'0xd96f48665a1410c0cd669a88898eca36b9fc2cce'}"}, first: 1000) {
+        owner
+        assets
+        shares
+      }
+      withdraws(where: {owner: "${'0xd96f48665a1410c0cd669a88898eca36b9fc2cce'}"}, first: 1000) {
+        owner
+        assets
+        shares
+      }
+    }
+  `
+
+  const { data } = useSWR(
+    [
+      'https://subgraph.satsuma-prod.com/327d6f1d3de6/reserve/dgneth/api',
+      query,
+    ],
+    ([url, query]) => fetcher(url, query)
+  )
+
+  const earnings = useMemo(() => {
+    if (!data) return undefined
+
+    const deposits: { assets: number; shares: number } = data.deposits.reduce(
+      (acc: { assets: number; shares: number }, deposit: any) => ({
+        assets: acc.assets + +formatUnits(deposit.assets, TOKEN.decimals),
+        shares: acc.shares + +formatUnits(deposit.shares, STAKE_TOKEN.decimals),
+      }),
+      { assets: 0, shares: 0 }
+    )
+
+    const withdraws: { assets: number; shares: number } = data.withdraws.reduce(
+      (acc: { assets: number; shares: number }, withdraw: any) => ({
+        assets: acc.assets + +formatUnits(withdraw.assets, TOKEN.decimals),
+        shares:
+          acc.shares + +formatUnits(withdraw.shares, STAKE_TOKEN.decimals),
+      }),
+      { assets: 0, shares: 0 }
+    )
+
+    const totalAssets = deposits.assets - withdraws.assets
+    const totalShares = deposits.shares - withdraws.shares
+    const currentAssets = totalShares / rate
+
+    return currentAssets - Math.max(0, totalAssets)
+  }, [data, rate])
+
   return (
     <Card mt={3}>
       <Box sx={{ gap: 2 }} variant="layout.verticalAlign">
         <Text>Your earnings</Text>
-        <Text ml="auto" variant="muted">
-          12K
-        </Text>
-        <Text variant="accent">+0.8 dgnETH</Text>
+        {earnings !== undefined ? (
+          <Text ml="auto" variant="accent">
+            +
+            {Intl.NumberFormat('en-US', {
+              maximumFractionDigits: earnings < 1 ? 4 : 2,
+              compactDisplay: 'short',
+              notation: 'compact',
+            }).format(earnings)}{' '}
+            dgnETH
+          </Text>
+        ) : (
+          <Box ml="auto">
+            <Skeleton width={100} height={20} />
+          </Box>
+        )}
       </Box>
     </Card>
   )
