@@ -25,7 +25,7 @@ const StakeInputField = () => {
     return () => {
       setAmount('')
     }
-  }, [])
+  }, [setAmount])
 
   return (
     <Box sx={{ position: 'relative', zIndex: 0 }}>

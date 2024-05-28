@@ -35,7 +35,7 @@ const useAllowance = () => {
 
   useEffect(() => {
     refetch()
-  }, [blockNumber])
+  }, [blockNumber, refetch])
 
   return { allowance, isLoading }
 }

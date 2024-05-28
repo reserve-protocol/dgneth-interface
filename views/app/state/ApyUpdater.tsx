@@ -52,7 +52,7 @@ const ApyUpdater = () => {
         }, 0)
       )
     }
-  }, [yields, collaterals])
+  }, [yields, collaterals, basketBreakdown, setApy])
 
   return null
 }

@@ -107,13 +107,13 @@ const Updater = () => {
     if (price) {
       setPrice(+formatEther(price[0] + price[1] / 2n))
     }
-  }, [price])
+  }, [price, setPrice])
 
   useEffect(() => {
     if (basketsNeeded) {
       setBasketsNeeded(Number(formatEther(basketsNeeded)))
     }
-  }, [basketsNeeded])
+  }, [basketsNeeded, setBasketsNeeded])
 
   useEffect(() => {
     if (balances) {
@@ -123,7 +123,7 @@ const Updater = () => {
         formatted: formatUnits(balances[1], STAKE_TOKEN.decimals),
       })
     }
-  }, [balances])
+  }, [balances, setBalance, setStakeBalance])
 
   useEffect(() => {}, [])
 
@@ -134,13 +134,13 @@ const Updater = () => {
         Number(formatUnits(supplies[1], STAKE_TOKEN.decimals))
       )
     }
-  }, [supplies])
+  }, [setStakeTokenSupply, setTokenSupply, supplies])
 
   useEffect(() => {
     if (exchangeRate) {
       setExchangeRate(+formatUnits(exchangeRate, STAKE_TOKEN.decimals))
     }
-  }, [exchangeRate])
+  }, [exchangeRate, setExchangeRate])
 
   useEffect(() => {
     if (wallet.address && wallet.chainId === 1) {
@@ -148,14 +148,14 @@ const Updater = () => {
     } else {
       setAccount('')
     }
-  }, [wallet])
+  }, [setAccount, wallet])
 
   // Refresh data on block
   useEffect(() => {
     refetchBalances()
     refetchSupply()
     refetchRate()
-  }, [blockNumber])
+  }, [blockNumber, refetchBalances, refetchRate, refetchSupply])
 
   return null
 }

@@ -67,7 +67,7 @@ export const useApproval = (
     if (approvalSimulation?.request) {
       writeContract(approvalSimulation?.request)
     }
-  }, [approvalSimulation])
+  }, [approvalSimulation?.request, writeContract])
 
   const isLoading = !Boolean(approvalSimulation?.request) || validatingApproval
   const isSuccess = approvalStatus === 'success'

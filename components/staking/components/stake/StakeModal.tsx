@@ -54,6 +54,7 @@ const AmountsPreview = () => {
   const tokenOut = useAtomValue(tokenOutAtom)
 
   // Sometimes stAmount change as soon as the stake is successfull, and thats not the intended display
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const stAmountMemo = useMemo(() => stAmount, [!!stAmount])
 
   return (
@@ -83,7 +84,7 @@ const StakeModal = ({ onClose }: { onClose(): void }) => {
   const handleClose = useCallback(() => {
     setAmount('')
     onClose()
-  }, [setAmount])
+  }, [onClose, setAmount])
 
   return (
     <Modal
