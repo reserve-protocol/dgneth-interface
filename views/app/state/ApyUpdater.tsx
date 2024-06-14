@@ -39,14 +39,15 @@ const ApyUpdater = () => {
   })
 
   useEffect(() => {
-    if (yields && basketBreakdown && collaterals) {
+    const collateralYields = yields?.collaterals
+    if (collateralYields && basketBreakdown && collaterals) {
       setApy(
         (collaterals as string[]).reduce((acc, collateral, index) => {
           const collateralShare = +formatEther(
             (basketBreakdown[1] as bigint[])[index]
           )
           const collateralYield =
-            (yields[1][collateral.toLowerCase()] as number) || 0
+            (collateralYields[1][collateral.toLowerCase()] as number) || 0
 
           return acc + collateralYield * collateralShare
         }, 0)
