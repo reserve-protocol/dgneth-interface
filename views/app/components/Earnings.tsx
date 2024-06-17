@@ -19,18 +19,17 @@ const fetcher = (url: string, query: string) =>
     .then((json) => json.data)
 
 const Earnings = () => {
-  const wallet = useAtomValue(accountAtom)
+  const wallet = (useAtomValue(accountAtom) ?? '').toLowerCase()
   const rate = useAtomValue(stakeRateAtom)
 
-  // TODO: replace param with wallet address
   const query = `
     {
-      deposits(where: {owner: "${'0xd96f48665a1410c0cd669a88898eca36b9fc2cce'}"}, first: 1000) {
+      deposits(where: {owner: "${wallet}"}, first: 1000) {
         owner
         assets
         shares
       }
-      withdraws(where: {owner: "${'0xd96f48665a1410c0cd669a88898eca36b9fc2cce'}"}, first: 1000) {
+      withdraws(where: {owner: "${wallet}"}, first: 1000) {
         owner
         assets
         shares

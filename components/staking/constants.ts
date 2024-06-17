@@ -9,7 +9,7 @@ interface IToken {
 }
 
 export const TOKEN: IToken = {
-  address: '0x320623b8E4fF03373931769A31Fc52A4E78B5d70', // TODO: Change
+  address: '0x005F893EcD7bF9667195642f7649DA8163e23658',
   symbol: 'dgnETH',
   name: 'degenETH',
   decimals: 18,
@@ -17,9 +17,9 @@ export const TOKEN: IToken = {
 }
 
 export const STAKE_TOKEN: IToken = {
-  address: '0xf35b31B941D94B249EaDED041DB1b05b7097fEb6', // TODO: Change
+  address: '0x5BDd1fA233843Bfc034891BE8a6769e58F1e1346',
   symbol: 'sdgnETH',
   name: 'staked degenETH',
-  decimals: 18, // TODO: Change
+  decimals: 21,
   logo: '/svgs/dgneth.svg',
 }

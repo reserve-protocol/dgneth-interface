@@ -6,10 +6,9 @@ import { useEffect, useMemo } from 'react'
 import { useReadContract, useReadContracts } from 'wagmi'
 import FacadeRead from '../../../components/zap/abis/FacadeRead'
 import { Address, erc20Abi, formatEther } from 'viem'
+import { TOKEN } from '../../../components/staking/constants'
 
 const YIELDS_API = 'https://yields.reserve.org'
-// TODO: Just use TOKEN.address but right now that one is mocked
-const RTOKEN_ADDRESS = '0xE6C43823269Fbce5c6911d0924A8fc6920b723cE'
 
 const ApyUpdater = () => {
   const setApy = useSetAtom(underlyingApyAtom)
@@ -18,7 +17,7 @@ const ApyUpdater = () => {
     abi: FacadeRead,
     address: FACADE_ADDRESS,
     functionName: 'basketBreakdown' as any,
-    args: [RTOKEN_ADDRESS],
+    args: [TOKEN.address],
   })
   // TODO: Collaterals are ETH so always use 18 decimals, maybe this change in the future?
   // TODO: Not checking revenue distribution for now
@@ -44,7 +43,7 @@ const ApyUpdater = () => {
       setApy(
         (collaterals as string[]).reduce((acc, collateral, index) => {
           const collateralShare = +formatEther(
-            (basketBreakdown[1] as bigint[])[index]
+            (basketBreakdown[1] as any)[index]
           )
           const collateralYield =
             (collateralYields[1][collateral.toLowerCase()] as number) || 0
