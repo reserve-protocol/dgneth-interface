@@ -101,7 +101,11 @@ const ZapSubmitModal = () => {
   return (
     <Modal
       p={0}
-      sx={{ border: '3px solid', borderColor: 'borderFocused', minWidth: 440 }}
+      sx={{
+        border: '3px solid',
+        borderColor: 'black',
+        minWidth: 440,
+      }}
     >
       <Box
         sx={{
@@ -109,7 +113,6 @@ const ZapSubmitModal = () => {
           flexDirection: 'column',
           overflow: 'hidden',
           height: '100%',
-          backgroundColor: 'backgroundNested',
         }}
       >
         <Box variant="layout.verticalAlign" p={4} mb={[3, 0]} pt={4} pb={0}>
