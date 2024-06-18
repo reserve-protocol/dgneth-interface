@@ -105,7 +105,7 @@ const Updater = () => {
 
   useEffect(() => {
     if (price) {
-      setPrice(+formatEther(price[0] + price[1] / 2n))
+      setPrice(+formatEther((price[0] + price[1]) / 2n))
     }
   }, [price, setPrice])
 
