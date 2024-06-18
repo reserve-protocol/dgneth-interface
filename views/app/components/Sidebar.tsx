@@ -4,6 +4,7 @@ import { isStakingAtom } from '../state/atoms'
 import LinkCircle from '../../../components/icons/LinkCircle'
 import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
+import { TOKEN } from '../../../components/staking/constants'
 
 const Sidebar = () => {
   const [isStaking, setStaking] = useAtom(isStakingAtom)
@@ -70,7 +71,7 @@ const Sidebar = () => {
         ml={['auto', 0]}
       >
         <Link
-          href="https://app.reserve.org/ethereum/token/0xe6c43823269fbce5c6911d0924a8fc6920b723ce/overview#section-2"
+          href={`https://app.reserve.org/ethereum/token/${TOKEN.address}/overview#section-2`}
           target="_blank"
         >
           <Box variant="layout.verticalAlign">
@@ -79,7 +80,7 @@ const Sidebar = () => {
           </Box>
         </Link>
         <Link
-          href="https://app.reserve.org/ethereum/token/0xe6c43823269fbce5c6911d0924a8fc6920b723ce/overview"
+          href={`https://app.reserve.org/ethereum/token/${TOKEN.address}/overview`}
           target="_blank"
         >
           <Box variant="layout.verticalAlign">

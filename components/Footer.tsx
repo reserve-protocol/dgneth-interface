@@ -17,7 +17,7 @@ const socials = [
   },
   {
     name: 'Discord',
-    url: 'https://discord.gg/CGgjr8qB',
+    url: 'https://discord.gg/e7KpSTs5',
     logo: <Discord />,
   },
   // {

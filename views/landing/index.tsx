@@ -5,6 +5,7 @@ import DegenFork from '../../components/icons/DegenFork'
 import DegenStar from '../../components/icons/DegenStar'
 import Powered from '../../components/icons/Powered'
 import Link from 'next/link'
+import { TOKEN } from '../../components/staking/constants'
 
 const menuItems = [
   { label: 'Mint', href: '/app?mode=mint' },
@@ -135,7 +136,7 @@ const Hero = () => (
       </Link>
 
       <Link
-        href="https://app.reserve.org/ethereum/token/0xe6c43823269fbce5c6911d0924a8fc6920b723ce/overview"
+        href={`https://app.reserve.org/ethereum/token/${TOKEN.address}/overview`}
         target="_blank"
       >
         <Button variant="bordered" px={4}>
