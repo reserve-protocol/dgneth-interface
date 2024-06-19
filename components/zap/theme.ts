@@ -368,7 +368,8 @@ export const theme: Theme = {
     },
     bordered: {
       ...baseButton,
-      outline: '4px solid',
+      border: '4px solid',
+      padding: '8px 12px',
       color: '#000',
       backgroundColor: 'transparent',
       '&:hover': {
