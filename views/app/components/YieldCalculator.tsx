@@ -22,6 +22,10 @@ const AmountInput = (props: BoxProps) => {
 const Timeframe = (props: BoxProps) => {
   const [timeFrame, setTimeFrame] = useAtom(timeFrameAtom)
 
+  const handleSliderChange = (e: any) => {
+    setTimeFrame(e.target.value)
+  }
+
   return (
     <Box sx={{ fontSize: 1 }} {...props}>
       <Box variant="layout.verticalAlign">
@@ -39,7 +43,7 @@ const Timeframe = (props: BoxProps) => {
         min={1}
         max={12}
         value={timeFrame}
-        onChange={(e) => setTimeFrame(e.target.value as any)}
+        onChange={handleSliderChange}
       />
       <Box variant="layout.verticalAlign">
         <Text>1 month</Text>
@@ -52,9 +56,8 @@ const Timeframe = (props: BoxProps) => {
 const YieldResults = (props: BoxProps) => {
   const apy = useAtomValue(stakeApyAtom)
   const amount = useAtomValue(amountAtom)
-  const timeFrame = useAtomValue(timeFrameAtom)
+  const timeframeApy = useAtomValue(timeFrameAtom)
   const price = useAtomValue(priceAtom)
-  const timeframeApy = 12 - timeFrame
 
   const rewards = amount && apy ? Number(amount) * (timeframeApy / 100) : 0
 
