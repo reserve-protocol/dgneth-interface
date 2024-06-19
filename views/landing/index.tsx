@@ -89,7 +89,7 @@ const DegenArt = () => (
       sx={{
         position: 'absolute',
         bottom: 0,
-        right: [40, 40, 0, 40],
+        right: [0, 40, 0, 40],
         height: [160, 220, 430],
       }}
     >
