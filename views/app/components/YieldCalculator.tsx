@@ -6,7 +6,7 @@ import { priceAtom, stakeApyAtom } from '../state/atoms'
 import { formatCurrency } from '../../../components/zap/utils'
 
 const amountAtom = atom('')
-const timeFrameAtom = atom(6)
+const timeFrameAtom = atom(12)
 
 const AmountInput = (props: BoxProps) => {
   const [amount, setAmount] = useAtom(amountAtom)
@@ -41,13 +41,13 @@ const Timeframe = (props: BoxProps) => {
       </Box>
       <Slider
         min={1}
-        max={12}
+        max={60}
         value={timeFrame}
         onChange={handleSliderChange}
       />
       <Box variant="layout.verticalAlign">
         <Text>1 month</Text>
-        <Text ml="auto">1 year</Text>
+        <Text ml="auto">5 years</Text>
       </Box>
     </Box>
   )

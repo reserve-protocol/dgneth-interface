@@ -53,13 +53,6 @@ export const stakeOutputAtom = atom((get) => {
     : 0
 })
 
-export const isValidStakeAmountAtom = atom((get) => {
-  return isAmountValid(
-    safeParseEther(get(debouncedStakeAmountAtom) || '0'),
-    get(balanceAtom).value
-  )
-})
-
 export const tokenInAtom = atom((get) => {
   return get(isStakingAtom) ? TOKEN : STAKE_TOKEN
 })
@@ -74,6 +67,16 @@ export const tokenInBalance = atom((get) => {
 
 export const tokenOutBalance = atom((get) => {
   return get(isStakingAtom) ? get(stakeBalanceAtom) : get(balanceAtom)
+})
+
+export const isValidStakeAmountAtom = atom((get) => {
+  return isAmountValid(
+    safeParseEther(
+      get(debouncedStakeAmountAtom) || '0',
+      get(isStakingAtom) ? TOKEN.decimals : STAKE_TOKEN.decimals
+    ),
+    get(tokenInBalance).value
+  )
 })
 
 export const transactionAtom = atom((get) => {

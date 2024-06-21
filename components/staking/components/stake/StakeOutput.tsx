@@ -21,7 +21,7 @@ const StakeBalance = () => {
         Balance
       </Text>
       <Text variant="strong" mx="1">
-        {formatCurrency(+balance.formatted, 2, {
+        {formatCurrency(+balance.formatted, 5, {
           notation: 'compact',
           compactDisplay: 'short',
         })}
@@ -49,7 +49,7 @@ const StakeOutput = () => {
         variant="layout.verticalAlign"
         sx={{ fontSize: 4, fontWeight: 700, overflow: 'hidden' }}
       >
-        <Text>{formatCurrency(stAmount)}</Text>
+        <Text>{stAmount}</Text>
         <Text variant="legend" ml="2">
           {tokenOut.symbol}
         </Text>
@@ -59,7 +59,7 @@ const StakeOutput = () => {
           variant="legend"
           sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
         >
-          ${formatCurrency(usdAmount, 2)}
+          ${formatCurrency(usdAmount, 5)}
         </Text>
         <StakeBalance />
       </Box>

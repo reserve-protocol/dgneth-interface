@@ -71,14 +71,14 @@ const StakeBalance = () => {
         Balance
       </Text>
       <Text variant="strong" mx="1">
-        {formatCurrency(+balance.formatted, 2, {
+        {formatCurrency(+balance.formatted, 5, {
           notation: 'compact',
           compactDisplay: 'short',
         })}
       </Text>
       <Button
         small
-        variant="muted"
+        variant="primary"
         onClick={() => setAmount(balance.formatted)}
       >
         Max
