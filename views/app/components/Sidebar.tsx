@@ -32,6 +32,7 @@ const Sidebar = () => {
         mt="4"
         as="ul"
         sx={{
+          fontSize: [1, 'inherit'],
           margin: 0,
           padding: 0,
           li: {
@@ -48,7 +49,8 @@ const Sidebar = () => {
           className={!isStaking ? 'active' : ''}
           onClick={() => setStaking(false)}
         >
-          Minting
+          <Text sx={{ display: ['none', 'inline'] }}>Minting</Text>
+          <Text sx={{ display: ['inline', 'none'] }}>Mint</Text>
         </Box>
         <Box
           as="li"
@@ -56,17 +58,21 @@ const Sidebar = () => {
           className={isStaking ? 'active' : ''}
           onClick={() => setStaking(true)}
         >
-          Staking
+          <Text sx={{ display: ['none', 'inline'] }}>Staking</Text>
+          <Text sx={{ display: ['inline', 'none'] }}>Stake</Text>
         </Box>
       </Box>
       <Flex
         sx={{
+          fontSize: [1, 'inherit'],
           position: ['relative', 'absolute'],
           flexDirection: ['row', 'column'],
           bottom: [0, 16],
           gap: 2,
         }}
-        p={[4, 0]}
+        py={[4, 0]}
+        pr={[4, 0]}
+        pl={[2, 0]}
         ml={['auto', 0]}
       >
         <Link
@@ -83,7 +89,9 @@ const Sidebar = () => {
           target="_blank"
         >
           <Box variant="layout.verticalAlign">
-            <Text mr="2">Learn more</Text>
+            <Text mr="2" sx={{ whiteSpace: 'nowrap' }}>
+              Learn more
+            </Text>
             <LinkCircle />
           </Box>
         </Link>
