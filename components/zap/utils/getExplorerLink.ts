@@ -2,7 +2,6 @@ import { ChainId } from './chains'
 
 const ETHERSCAN_PREFIXES: { [chainId: number]: string } = {
   [ChainId.Mainnet]: 'etherscan.io',
-  [ChainId.Base]: 'basescan.org',
 }
 
 export enum ExplorerDataType {
