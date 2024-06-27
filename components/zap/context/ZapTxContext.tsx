@@ -27,6 +27,7 @@ type ZapTxContextType = {
   validatingTx: boolean
   sendTransaction?: () => void
   receipt?: TransactionReceipt
+  onGoingConfirmation: boolean
 }
 
 const ZapTxContext = createContext<ZapTxContextType>({
@@ -36,6 +37,7 @@ const ZapTxContext = createContext<ZapTxContextType>({
   approvalSuccess: false,
   loadingTx: false,
   validatingTx: false,
+  onGoingConfirmation: false,
 })
 
 export const useZapTx = () => {
@@ -93,7 +95,13 @@ export const ZapTxProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     }
   }, [allowanceError, approvalSuccess, loadingApproval, validatingApproval])
 
-  const { data, sendTransaction, error: sendError } = useSendTransaction()
+  const {
+    data,
+    isPending: loadingTx,
+    isIdle: isIdleTx,
+    sendTransaction,
+    error: sendError,
+  } = useSendTransaction()
 
   const { data: receipt, isLoading: validatingTx } =
     useWaitForTransactionReceipt({
@@ -105,30 +113,41 @@ export const ZapTxProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     if (zapResult?.tx) {
       sendTransaction({
         data: zapResult.tx.data as Address,
-        gas: BigInt(zapResult.gas ?? 0),
+        gas: BigInt(zapResult.gas ?? 0) || undefined,
         to: zapResult.tx.to as Address,
         value: BigInt(zapResult.tx.value),
       })
     }
   }, [sendTransaction, zapResult])
 
+  const onGoingConfirmation = Boolean(
+    (loadingApproval ||
+      approvalSuccess ||
+      loadingTx ||
+      validatingTx ||
+      receipt) &&
+      !error
+  )
+
   useEffect(() => {
     if (!approvalSuccess) return
-    if (!zapResult?.tx && refetch) {
-      refetch()
-      return
-    }
-    if (!error && zapResult?.tx && !(validatingTx || receipt)) {
+    if (
+      !error &&
+      execute &&
+      isIdleTx &&
+      !(loadingTx || validatingTx || receipt)
+    ) {
       execute()
     }
   }, [
     approvalSuccess,
+    sendTransaction,
     zapResult?.tx,
-    refetch,
     error,
+    loadingTx,
     validatingTx,
     receipt,
-    execute,
+    isIdleTx,
   ])
 
   useEffect(() => {
@@ -161,10 +180,11 @@ export const ZapTxProvider: FC<PropsWithChildren<any>> = ({ children }) => {
         validatingApproval,
         approvalSuccess,
         approve,
-        loadingTx: false,
+        loadingTx,
         validatingTx,
         sendTransaction: execute,
         receipt,
+        onGoingConfirmation,
       }}
     >
       {children}
