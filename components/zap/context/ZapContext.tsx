@@ -1,6 +1,3 @@
-import { useChainlinkPrice } from '../hooks/useChainlinkPrice'
-import useDebounce from '../hooks/useDebounce'
-import { ChainId } from '../utils/chains'
 import {
   FC,
   PropsWithChildren,
@@ -12,8 +9,14 @@ import {
   useState,
 } from 'react'
 import useSWR, { KeyedMutator } from 'swr'
-import { Address, formatUnits, parseUnits, zeroAddress } from 'viem'
-import { useFeeData } from 'wagmi'
+import {
+  Address,
+  formatEther,
+  formatUnits,
+  parseUnits,
+  zeroAddress,
+} from 'viem'
+import { useGasPrice } from 'wagmi'
 import { ZapErrorType } from '../ZapError'
 import zapper, { ZapResponse, ZapResult, fetcher } from '../api'
 import {
@@ -21,7 +24,10 @@ import {
   SLIPPAGE_OPTIONS,
   zappableTokens,
 } from '../constants'
+import { useChainlinkPrice } from '../hooks/useChainlinkPrice'
+import useDebounce from '../hooks/useDebounce'
 import { formatCurrency } from '../utils'
+import { ChainId } from '../utils/chains'
 import { useRToken } from './RTokenContext'
 
 export type IssuanceOperation = 'mint' | 'redeem'
@@ -77,7 +83,12 @@ type ZapContextType = {
   priceImpact?: number
   spender?: Address
   zapResult?: ZapResult
+
+  refreshInterval: number
+  refreshQuote: () => void
 }
+
+const REFRESH_INTERVAL = 12000 // 12 seconds
 
 const ZapContext = createContext<ZapContextType>({
   zapEnabled: true,
@@ -105,6 +116,8 @@ const ZapContext = createContext<ZapContextType>({
   tokenIn: zappableTokens[ChainId.Mainnet][0],
   tokenOut: zappableTokens[ChainId.Mainnet][0],
   resetZap: () => {},
+  refreshInterval: REFRESH_INTERVAL,
+  refreshQuote: () => {},
 })
 
 export const useZap = () => {
@@ -123,11 +136,12 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const [selectedToken, setSelectedToken] = useState<ZapToken>()
   const [error, setError] = useState<ZapErrorType>()
   const [retries, setRetries] = useState(0)
+  const [isRetrying, setIsRetrying] = useState(false)
 
   const {
     chainId,
-    ethPrice,
     account,
+    ethPrice,
     accountChain,
     rTokenData,
     rTokenPrice,
@@ -137,7 +151,9 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     redemptionAvailable,
   } = useRToken()
 
-  const { data: gas } = useFeeData()
+  const { data: gasPrice } = useGasPrice({
+    chainId,
+  })
 
   const tokens: ZapToken[] = useMemo(
     () =>
@@ -287,7 +303,28 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     error: apiError,
     mutate: refetch,
   } = useSWR<ZapResponse>(endpoint, fetcher, {
-    isPaused: () => openSubmitModal,
+    onSuccess(data, _, __) {
+      // if data.error exists, it means the zap failed.
+      if (data.error && retries < 10 && !isRetrying) {
+        setIsRetrying(true)
+        setTimeout(() => {
+          setRetries((r) => r + 1)
+          refetch()
+          setIsRetrying(false)
+        }, 500)
+      } else {
+        setRetries(0)
+        setIsRetrying(false)
+      }
+    },
+    onErrorRetry: (_, __, ___, revalidate, { retryCount }) => {
+      // Only retry up to 10 times.
+      if (retryCount >= 10) return
+
+      // Retry after 5 seconds.
+      setTimeout(() => revalidate({ retryCount }), 500)
+    },
+    refreshInterval: openSubmitModal ? 0 : REFRESH_INTERVAL,
   })
 
   const [amountOut, priceImpact, zapDustUSD, gasCost, spender] = useMemo(() => {
@@ -305,15 +342,18 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
       tokenOut.decimals
     )
 
-    const estimatedGasCost = gas?.formatted?.gasPrice
-      ? (+(data.result.gas ?? 0) * +gas?.formatted?.gasPrice * ethPrice) / 1e9
+    const estimatedGasCost = gasPrice
+      ? +(data.result.gas ?? 0) * +formatEther(gasPrice) * ethPrice
       : 0
 
     const inputPriceValue = (tokenIn?.price || 0) * Number(_amountIn) || 1
     const outputPriceValue = (tokenOut?.price || 0) * Number(_amountOut)
     const _priceImpact =
-      !tokenIn?.price || !tokenOut?.price
-        ? ((inputPriceValue - outputPriceValue) / inputPriceValue) * 100
+      tokenIn?.price && tokenOut?.price
+        ? ((inputPriceValue -
+            (outputPriceValue + (data.result.dustValue ?? 0))) /
+            inputPriceValue) *
+          100
         : 0
 
     return [
@@ -329,15 +369,9 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     tokenIn?.price,
     tokenOut.decimals,
     tokenOut?.price,
-    gas?.formatted?.gasPrice,
+    gasPrice,
     ethPrice,
   ])
-
-  useEffect(() => {
-    if (!apiError && data && data.result) {
-      setRetries(0)
-    }
-  }, [apiError, data, setRetries])
 
   useEffect(() => {
     if (apiError || (data && data.error)) {
@@ -353,11 +387,6 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
       })
 
       setOpenSubmitModal(false)
-
-      if (retries < 3) {
-        refetch()
-        setRetries((r) => r + 1)
-      }
     } else if (data?.result && data.result.insufficientFunds) {
       setError({
         title: 'Insufficient funds',
@@ -378,8 +407,23 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
           operation === 'mint' ? 'Mint' : 'Redeem'
         } Anyway`,
       })
+    } else {
+      setError(undefined)
     }
-  }, [apiError, data, operation, setError, priceImpact, refetch, retries])
+  }, [
+    apiError,
+    data,
+    operation,
+    setError,
+    priceImpact,
+    endpoint,
+    refetch,
+    retries,
+    setRetries,
+    setOpenSubmitModal,
+    isRetrying,
+    setIsRetrying,
+  ])
 
   const _setZapEnabled = useCallback(
     (value: boolean) => setZapEnabled(value),
@@ -426,6 +470,8 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
         zapResult: data?.result,
         endpoint,
         resetZap,
+        refreshQuote: refetch,
+        refreshInterval: REFRESH_INTERVAL,
       }}
     >
       {children}

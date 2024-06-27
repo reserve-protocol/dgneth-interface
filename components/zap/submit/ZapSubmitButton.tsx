@@ -7,6 +7,7 @@ const ZapSubmitButton = () => {
   const {
     setOpenSubmitModal,
     loadingZap,
+    validatingZap,
     amountIn,
     amountOut,
     operation,
@@ -36,7 +37,7 @@ const ZapSubmitButton = () => {
     <TransactionButtonContainer sx={{ width: '100%' }}>
       <LoadingButton
         onClick={onSubmit}
-        loading={loadingZap}
+        loading={loadingZap || validatingZap}
         text={title}
         backgroundColor={error?.color || 'primary'}
         disabled={disabled}

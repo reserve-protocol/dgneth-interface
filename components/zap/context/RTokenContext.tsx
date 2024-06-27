@@ -61,7 +61,6 @@ const TOKEN_BALANCES = [
 
 const FACADE_ADDRESSES = {
   [ChainId.Mainnet]: '0x2815c24F49D5c5316Ffd0952dB0EFe68b0d5F132',
-  [ChainId.Base]: '0xDf99ccA98349DeF0eaB8eC37C1a0B270de38E682',
 }
 
 const RTokenContext = createContext<RTokenContextType>({

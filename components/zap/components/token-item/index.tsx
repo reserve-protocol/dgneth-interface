@@ -1,5 +1,4 @@
 import TokenLogo from '../../components/icons/TokenLogo'
-import Base from '../../components/icons/logos/Base'
 import Ethereum from '../../components/icons/logos/Ethereum'
 import { Text, BoxProps, Box, Flex } from 'theme-ui'
 
@@ -24,10 +23,7 @@ const TokenItem = ({ symbol, logo, width = 24, chainId, ...props }: Props) => (
       <TokenLogo width={width} mr="6px" symbol={symbol} src={logo} />
       <Text {...props}>{symbol}</Text>
     </Flex>
-    <Box>
-      {chainId === 1 && <Ethereum />}
-      {chainId === 8453 && <Base />}
-    </Box>
+    <Box>{chainId === 1 && <Ethereum />}</Box>
   </Box>
 )
 

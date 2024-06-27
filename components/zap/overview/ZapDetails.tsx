@@ -28,7 +28,9 @@ const ZapDetails = ({ hideGasCost, ...props }: Props) => {
               fontSize: 14,
               fontWeight: 500,
               color:
-                (priceImpact || 0) > PRICE_IMPACT_THRESHOLD ? 'danger' : 'text',
+                (priceImpact || 0) > PRICE_IMPACT_THRESHOLD
+                  ? 'danger'
+                  : 'inherit',
             }}
           >
             {formatNumber(priceImpact || 0, 2)}%
