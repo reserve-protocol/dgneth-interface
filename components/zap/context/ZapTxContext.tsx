@@ -148,6 +148,7 @@ export const ZapTxProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     validatingTx,
     receipt,
     isIdleTx,
+    execute,
   ])
 
   useEffect(() => {
