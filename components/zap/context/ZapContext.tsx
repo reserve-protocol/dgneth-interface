@@ -1,6 +1,3 @@
-import { useChainlinkPrice } from '../hooks/useChainlinkPrice'
-import useDebounce from '../hooks/useDebounce'
-import { ChainId } from '../utils/chains'
 import {
   FC,
   PropsWithChildren,
@@ -12,8 +9,14 @@ import {
   useState,
 } from 'react'
 import useSWR, { KeyedMutator } from 'swr'
-import { Address, formatUnits, parseUnits, zeroAddress } from 'viem'
-import { useFeeData } from 'wagmi'
+import {
+  Address,
+  formatEther,
+  formatUnits,
+  parseUnits,
+  zeroAddress,
+} from 'viem'
+import { useGasPrice } from 'wagmi'
 import { ZapErrorType } from '../ZapError'
 import zapper, { ZapResponse, ZapResult, fetcher } from '../api'
 import {
@@ -21,7 +24,10 @@ import {
   SLIPPAGE_OPTIONS,
   zappableTokens,
 } from '../constants'
+import { useChainlinkPrice } from '../hooks/useChainlinkPrice'
+import useDebounce from '../hooks/useDebounce'
 import { formatCurrency } from '../utils'
+import { ChainId } from '../utils/chains'
 import { useRToken } from './RTokenContext'
 
 export type IssuanceOperation = 'mint' | 'redeem'
@@ -126,8 +132,8 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 
   const {
     chainId,
-    ethPrice,
     account,
+    ethPrice,
     accountChain,
     rTokenData,
     rTokenPrice,
@@ -137,7 +143,9 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     redemptionAvailable,
   } = useRToken()
 
-  const { data: gas } = useFeeData()
+  const { data: gasPrice } = useGasPrice({
+    chainId,
+  })
 
   const tokens: ZapToken[] = useMemo(
     () =>
@@ -305,8 +313,8 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
       tokenOut.decimals
     )
 
-    const estimatedGasCost = gas?.formatted?.gasPrice
-      ? (+(data.result.gas ?? 0) * +gas?.formatted?.gasPrice * ethPrice) / 1e9
+    const estimatedGasCost = gasPrice
+      ? +(data.result.gas ?? 0) * +formatEther(gasPrice) * ethPrice
       : 0
 
     const inputPriceValue = (tokenIn?.price || 0) * Number(_amountIn) || 1
@@ -329,7 +337,7 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     tokenIn?.price,
     tokenOut.decimals,
     tokenOut?.price,
-    gas?.formatted?.gasPrice,
+    gasPrice,
     ethPrice,
   ])
 
