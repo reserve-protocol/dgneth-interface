@@ -15,7 +15,7 @@ const ZapOutputBalance = () => {
         <Text>Balance </Text>
         {tokenOut.balance && (
           <Text sx={{ fontWeight: 'bold' }}>
-            {formatCurrency(+tokenOut.balance, 2, {
+            {formatCurrency(+tokenOut.balance, 3, {
               notation: 'compact',
               compactDisplay: 'short',
             })}
