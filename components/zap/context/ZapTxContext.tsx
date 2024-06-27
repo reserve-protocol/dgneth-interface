@@ -8,11 +8,11 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { ZapErrorType } from '../ZapError'
-import { useZap } from './ZapContext'
 import { Address, TransactionReceipt, parseUnits } from 'viem'
-import { Allowance, useApproval } from '../hooks/useApproval'
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
+import { ZapErrorType } from '../ZapError'
+import { Allowance, useApproval } from '../hooks/useApproval'
+import { useZap } from './ZapContext'
 
 type ZapTxContextType = {
   error?: ZapErrorType
@@ -53,7 +53,6 @@ export const ZapTxProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     spender,
     amountIn,
     zapResult,
-    refetch,
     setOpenSubmitModal,
     resetZap,
   } = useZap()
@@ -103,11 +102,14 @@ export const ZapTxProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     error: sendError,
   } = useSendTransaction()
 
-  const { data: receipt, isLoading: validatingTx } =
-    useWaitForTransactionReceipt({
-      hash: data,
-      chainId,
-    })
+  const {
+    data: receipt,
+    isLoading: validatingTx,
+    error: txError,
+  } = useWaitForTransactionReceipt({
+    hash: data,
+    chainId,
+  })
 
   const execute = useCallback(() => {
     if (zapResult?.tx) {
@@ -152,7 +154,7 @@ export const ZapTxProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   ])
 
   useEffect(() => {
-    if (sendError && !(validatingTx || receipt)) {
+    if ((sendError || txError) && !(loadingTx || validatingTx || receipt)) {
       setError({
         title: 'Transaction rejected',
         message: 'Please try again',
@@ -162,15 +164,13 @@ export const ZapTxProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     } else {
       setError(undefined)
     }
-  }, [sendError, setError, validatingTx, receipt])
+  }, [sendError, setError, loadingTx, validatingTx, receipt, txError])
 
   useEffect(() => {
     if (!receipt) return
-    setTimeout(() => {
-      setOpenSubmitModal(false)
-      resetZap()
-    }, 2000)
-  }, [receipt, resetZap, setOpenSubmitModal])
+    setOpenSubmitModal(false)
+    resetZap()
+  }, [receipt, setOpenSubmitModal, resetZap])
 
   return (
     <ZapTxContext.Provider

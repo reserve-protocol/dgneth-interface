@@ -55,6 +55,7 @@ export const useApproval = (
   const {
     data: writeData,
     writeContract,
+    isPending: approving,
     error: approvalError,
   } = useWriteContract()
 
@@ -69,7 +70,7 @@ export const useApproval = (
     }
   }, [approvalSimulation?.request, writeContract])
 
-  const isLoading = validatingApproval
+  const isLoading = approving || validatingApproval
   const isSuccess = approvalStatus === 'success'
   const error = allowanceError || approvalError
 
