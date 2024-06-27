@@ -85,6 +85,8 @@ type ZapContextType = {
   zapResult?: ZapResult
 }
 
+const REFRESH_INTERVAL = 12000 // 12 seconds
+
 const ZapContext = createContext<ZapContextType>({
   zapEnabled: true,
   setZapEnabled: () => {},
@@ -129,6 +131,7 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const [selectedToken, setSelectedToken] = useState<ZapToken>()
   const [error, setError] = useState<ZapErrorType>()
   const [retries, setRetries] = useState(0)
+  const [isRetrying, setIsRetrying] = useState(false)
 
   const {
     chainId,
@@ -295,7 +298,28 @@ export const ZapProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     error: apiError,
     mutate: refetch,
   } = useSWR<ZapResponse>(endpoint, fetcher, {
-    isPaused: () => openSubmitModal,
+    onSuccess(data, _, __) {
+      // if data.error exists, it means the zap failed.
+      if (data.error && retries < 10 && !isRetrying) {
+        setIsRetrying(true)
+        setTimeout(() => {
+          setRetries((r) => r + 1)
+          refetch()
+          setIsRetrying(false)
+        }, 500)
+      } else {
+        setRetries(0)
+        setIsRetrying(false)
+      }
+    },
+    onErrorRetry: (_, __, ___, revalidate, { retryCount }) => {
+      // Only retry up to 10 times.
+      if (retryCount >= 10) return
+
+      // Retry after 5 seconds.
+      setTimeout(() => revalidate({ retryCount }), 500)
+    },
+    refreshInterval: openSubmitModal ? 0 : REFRESH_INTERVAL,
   })
 
   const [amountOut, priceImpact, zapDustUSD, gasCost, spender] = useMemo(() => {
