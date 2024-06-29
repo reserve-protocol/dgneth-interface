@@ -24,7 +24,7 @@ const Overview = () => {
         Big boy ETH yield
       </Text>
       <Text variant="muted">
-        dgnETH gives you exposure to top yield strategies across DeFi
+        Degen ETH gives you exposure to select yield strategies across DeFi
       </Text>
       <Flex sx={{ gap: 2, flexDirection: 'column' }} my="5">
         {checks.map((label) => (
