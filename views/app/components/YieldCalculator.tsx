@@ -56,10 +56,11 @@ const Timeframe = (props: BoxProps) => {
 const YieldResults = (props: BoxProps) => {
   const apy = useAtomValue(stakeApyAtom)
   const amount = useAtomValue(amountAtom)
-  const timeframeApy = useAtomValue(timeFrameAtom)
+  const timeFrame = useAtomValue(timeFrameAtom)
   const price = useAtomValue(priceAtom)
 
-  const rewards = amount && apy ? Number(amount) * (timeframeApy / 100) : 0
+  const rewards =
+    amount && apy ? Number(amount) * (timeFrame / 12) * (apy / 100) : 0
 
   return (
     <Box {...props}>
