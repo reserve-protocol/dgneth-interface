@@ -12,9 +12,10 @@ import {
 import { ChainId, supportedChains } from '../utils/chains'
 import { Address, erc20Abi, formatEther, formatUnits } from 'viem'
 import {
+  useAccount,
   useBalance,
   useBlockNumber,
-  useContractRead,
+  useReadContract,
   useReadContracts,
   useWalletClient,
 } from 'wagmi'
@@ -79,6 +80,8 @@ export const useRToken = () => {
 
 export const RTokenProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const account = useWalletClient()
+  const { chainId: accountChainId } = useAccount()
+
   const { data: blockNumber } = useBlockNumber({ watch: true })
 
   const chainId = useMemo(() => {
@@ -93,7 +96,7 @@ export const RTokenProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
   )
 
-  const { data: _rTokenPrice } = useContractRead({
+  const { data: _rTokenPrice } = useReadContract({
     abi: FacadeRead,
     address: FACADE_ADDRESSES[chainId] as Address,
     functionName: 'price',
@@ -193,7 +196,7 @@ export const RTokenProvider: FC<PropsWithChildren<any>> = ({ children }) => {
         chainId,
         ethPrice: ethPrice || 0,
         account: account.data?.account.address,
-        accountChain: account.data?.chain.id,
+        accountChain: accountChainId,
         rTokenData: RTOKEN_DATA,
         rTokenPrice,
         rTokenBalance: balances[RTOKEN_DATA.address],
