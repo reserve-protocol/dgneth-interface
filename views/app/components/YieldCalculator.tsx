@@ -4,6 +4,8 @@ import NumericalInput from '../../../components/zap/components/numerical-input/N
 import { atom, useAtom, useAtomValue } from 'jotai'
 import { priceAtom, stakeApyAtom } from '../state/atoms'
 import { formatCurrency } from '../../../components/zap/utils'
+import TokenAddress from '../../../components/TokenAddress'
+import { ChainId } from '../../../components/zap/utils/chains'
 
 const amountAtom = atom('')
 const timeFrameAtom = atom(12)
@@ -13,7 +15,19 @@ const AmountInput = (props: BoxProps) => {
 
   return (
     <Box {...props}>
-      <Text sx={{ fontSize: 1 }}>{STAKE_TOKEN.symbol}</Text>
+      <Box
+        variant="layout.verticalAlign"
+        sx={{ justifyContent: 'space-between', gap: 1 }}
+        px={1}
+      >
+        <Text sx={{ fontSize: 1 }}>{STAKE_TOKEN.symbol}</Text>
+        <TokenAddress
+          address={STAKE_TOKEN.address}
+          chain={ChainId.Mainnet}
+          showChain={false}
+          showCopy={false}
+        />
+      </Box>
       <NumericalInput value={amount} onChange={setAmount} placeholder="0.00" />
     </Box>
   )
