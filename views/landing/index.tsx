@@ -11,6 +11,7 @@ const menuItems = [
   { label: 'Mint', href: '/app?mode=mint' },
   { label: 'Stake', href: '/app?mode=stake' },
   { label: 'Docs', href: 'https://reserve.org/protocol/' },
+  { label: 'FAQ', href: '/faq' },
 ]
 
 const Menu = () => {
@@ -35,7 +36,7 @@ const Menu = () => {
   )
 }
 
-const Header = () => (
+export const Header = () => (
   <Box variant="layout.verticalAlign" sx={{ justifyContent: 'space-between' }}>
     <Brand dark width={123} height={40} />
 

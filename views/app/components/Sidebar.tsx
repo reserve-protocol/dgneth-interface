@@ -83,7 +83,7 @@ const Sidebar = () => {
               <Link
                 href="https://app.reserve.org/ethereum/token/0x005f893ecd7bf9667195642f7649da8163e23658/overview"
                 target="_blank"
-                sx={{ display: 'inline', color: 'lightgray' }}
+                sx={{ display: 'inline', color: 'lightgrey' }}
               >
                 here
               </Link>
