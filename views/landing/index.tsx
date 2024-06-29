@@ -142,7 +142,7 @@ const Hero = () => (
         target="_blank"
       >
         <Button variant="bordered" px={4}>
-          Learn More
+          Proof of Reserves
         </Button>
       </Link>
     </Box>
