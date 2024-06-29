@@ -62,6 +62,34 @@ const Sidebar = () => {
           <Text sx={{ display: ['none', 'inline'] }}>Staking</Text>
           <Text sx={{ display: ['inline', 'none'] }}>Stake</Text>
         </Box>
+        <Box
+          pt={4}
+          pr={4}
+          sx={{ color: 'gray', fontSize: 1, display: ['none', 'flex'] }}
+        >
+          {isStaking ? (
+            <Text>
+              By staking your dgnETH, you receive sdgnETH which accrues all the
+              yield from the staking contract. Staking provides easy access to
+              boosted yield from diversified onchain strategies without the need
+              to manage positions.
+            </Text>
+          ) : (
+            <Text>
+              By minting dgnETH, your ETH is deposited into select yield
+              strategies across DeFi. dgnETH is pegged to ETH and doesn’t accrue
+              staking rewards. You can use dgnETH to earn yield across the DeFi
+              integrations listed{' '}
+              <Link
+                href="https://app.reserve.org/ethereum/token/0x005f893ecd7bf9667195642f7649da8163e23658/overview"
+                target="_blank"
+                sx={{ display: 'inline', color: 'lightgray' }}
+              >
+                here
+              </Link>
+            </Text>
+          )}
+        </Box>
       </Box>
       <Flex
         sx={{
