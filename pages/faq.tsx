@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { Box, Button, Container, Heading, Link, Text } from 'theme-ui'
 import { Header } from '../views/landing'
+import Footer from '../components/Footer'
 
 type AccordionItemProps = {
   title: string
@@ -136,36 +137,46 @@ const FAQPage = () => {
     <Container
       variant="wrapper"
       pb={4}
-      sx={{ maxWidth: [1300, 1700], width: ['95%', '95%', '90%'] }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        maxWidth: [1300, 1700],
+        width: ['95%', '95%', '90%'],
+        minHeight: '100vh',
+      }}
     >
-      <Box
-        p={[3, 5]}
-        mb={4}
-        sx={{
-          backgroundColor: 'primary',
-          borderRadius: '0px 0px 16px 16px',
-          minHeight: ['auto', 'auto', 120],
-          flexDirection: 'column',
-          overflow: 'hidden',
-          position: 'relative',
-        }}
-      >
-        <Header />
-        <Text
-          variant="title"
+      <Box>
+        <Box
+          p={[3, 5]}
+          mb={4}
           sx={{
-            mt: 4,
-            mb: 1,
-            fontSize: [4, 6],
-            fontWeight: 'bold',
-            lineHeight: ['42px', '62px', '62px', '62px', '82px'],
-            textAlign: 'center',
+            backgroundColor: 'primary',
+            borderRadius: '0px 0px 16px 16px',
+            minHeight: ['auto', 'auto', 120],
+            flexDirection: 'column',
+            overflow: 'hidden',
+            position: 'relative',
           }}
         >
-          Frequently Asked Questions
-        </Text>
+          <Header />
+          <Text
+            variant="title"
+            sx={{
+              mt: 4,
+              mb: 1,
+              fontSize: [4, 6],
+              fontWeight: 'bold',
+              lineHeight: ['42px', '62px', '62px', '62px', '82px'],
+              textAlign: 'center',
+            }}
+          >
+            Frequently Asked Questions
+          </Text>
+        </Box>
+        <Accordion items={faqItems} />
       </Box>
-      <Accordion items={faqItems} />
+      <Footer mt={8} />
     </Container>
   )
 }

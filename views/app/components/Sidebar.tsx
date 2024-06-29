@@ -63,7 +63,7 @@ const Sidebar = () => {
           <Text sx={{ display: ['inline', 'none'] }}>Stake</Text>
         </Box>
         <Box
-          pt={4}
+          pt={3}
           pr={4}
           sx={{ color: 'gray', fontSize: 1, display: ['none', 'flex'] }}
         >
@@ -93,7 +93,7 @@ const Sidebar = () => {
       </Box>
       <Flex
         sx={{
-          fontSize: [1, 'inherit'],
+          fontSize: 1,
           position: ['relative', 'absolute'],
           flexDirection: ['row', 'column'],
           bottom: [0, 16],
@@ -113,13 +113,20 @@ const Sidebar = () => {
             <LinkCircle />
           </Box>
         </Link>
+        <Link href={`/faq`} target="_blank">
+          <Box variant="layout.verticalAlign" sx={{ whiteSpace: 'nowrap' }}>
+            <Text mr="2">Learn More</Text>
+            <LinkCircle />
+          </Box>
+        </Link>
         <Link
           href={`https://app.reserve.org/ethereum/token/${TOKEN.address}/overview`}
           target="_blank"
+          sx={{ display: ['none', 'flex'] }}
         >
           <Box variant="layout.verticalAlign">
             <Text mr="2" sx={{ whiteSpace: 'nowrap' }}>
-              Learn more
+              Proof of Reserves
             </Text>
             <LinkCircle />
           </Box>
