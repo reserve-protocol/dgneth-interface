@@ -29,7 +29,11 @@ const ConnectButton = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <Button variant="accent" onClick={openConnectModal}>
+                  <Button
+                    variant="accent"
+                    onClick={openConnectModal}
+                    sx={{ py: 1 }}
+                  >
                     Connect Wallet
                   </Button>
                 )
@@ -37,14 +41,18 @@ const ConnectButton = () => {
 
               if (chain.unsupported) {
                 return (
-                  <Button variant="danger" onClick={openChainModal}>
+                  <Button
+                    variant="danger"
+                    onClick={openChainModal}
+                    sx={{ py: 1 }}
+                  >
                     Wrong network
                   </Button>
                 )
               }
 
               return (
-                <Button onClick={openAccountModal} type="button">
+                <Button onClick={openAccountModal} type="button" sx={{ py: 1 }}>
                   {account.displayName}
                 </Button>
               )
