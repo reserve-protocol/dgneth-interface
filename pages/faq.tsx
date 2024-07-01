@@ -71,7 +71,7 @@ const faqItems = [
         <Box>
           Degen ETH (dgnETH) is minted by depositing ETH into select yield
           strategies across DeFi. While dgnETH maintains a 1:1 peg to ETH and
-          doesn't accrue staking rewards, it can be used to earn yield onchain
+          doesn’t accrue staking rewards, it can be used to earn yield onchain
           across the DeFi integrations listed{' '}
           <Link
             href="https://app.reserve.org/ethereum/token/0x005f893ecd7bf9667195642f7649da8163e23658/overview"
