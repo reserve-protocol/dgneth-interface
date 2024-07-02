@@ -1,11 +1,10 @@
-import { Box, Button, Flex, Image, Link as UILink, Text } from 'theme-ui'
+import Link from 'next/link'
+import { Box, Button, Flex, Image, Text } from 'theme-ui'
 import Footer from '../../components/Footer'
 import Brand from '../../components/icons/Brand'
 import DegenFork from '../../components/icons/DegenFork'
 import DegenStar from '../../components/icons/DegenStar'
 import Powered from '../../components/icons/Powered'
-import Link from 'next/link'
-import { TOKEN } from '../../components/staking/constants'
 
 const menuItems = [
   { label: 'Mint', href: '/app?mode=mint' },
@@ -137,12 +136,9 @@ const Hero = () => (
         </Button>
       </Link>
 
-      <Link
-        href={`https://app.reserve.org/ethereum/token/${TOKEN.address}/overview`}
-        target="_blank"
-      >
+      <Link href={`/faq`}>
         <Button variant="bordered" px={4}>
-          Proof of Reserves
+          Learn More
         </Button>
       </Link>
     </Box>
