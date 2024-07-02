@@ -85,9 +85,9 @@ const faqItems = [
         <Box>
           Staked Degen ETH (sdgnETH) is obtained by depositing dgnETH into the
           staking contract, which accrues all the yield generated from dgnETH’s
-          underlying yield strategies.This staking mechanism provides users with
-          boosted onchain yield without the need to actively manage multiple
-          strategies, making it a simplified option for passive yield
+          underlying yield strategies. This staking mechanism provides users
+          with boosted onchain yield without the need to actively manage
+          multiple strategies, making it a simplified option for passive yield
           generation.
         </Box>
       </Box>
