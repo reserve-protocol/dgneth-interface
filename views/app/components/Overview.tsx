@@ -21,7 +21,7 @@ const Overview = () => {
       }}
     >
       <Text mb="1" variant="bold">
-        Big boy ETH yield
+        Supercharged ETH yield
       </Text>
       <Text variant="muted">
         Degen ETH gives you exposure to select yield strategies across DeFi

@@ -119,7 +119,7 @@ const Hero = () => (
         minHeight: ['120px', 'auto'],
       }}
     >
-      Supercharged ETH yield for the farming addicts
+      Supercharged ETH yield for farming addicts
     </Text>
     <Box
       mt={4}
