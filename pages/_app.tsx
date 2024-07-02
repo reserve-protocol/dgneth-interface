@@ -9,10 +9,12 @@ import {
 } from '@rainbow-me/rainbowkit'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeUIProvider } from 'theme-ui'
-import { WagmiProvider, http } from 'wagmi'
+import { WagmiProvider, http, unstable_connector } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 import { theme } from '../components/zap/theme'
 import Head from 'next/head'
+import { fallback } from 'viem'
+import { injected } from 'wagmi/connectors'
 
 const config = getDefaultConfig({
   appName: 'degenETH Interface',
@@ -22,7 +24,17 @@ const config = getDefaultConfig({
     ? {
         [mainnet.id]: http(process.env.NEXT_PUBLIC_RPC),
       }
-    : undefined,
+    : {
+        [mainnet.id]: fallback([
+          unstable_connector(injected),
+          http('https://mainnet.infura.io/v3/b6bf7d3508c941499b10025c0776eaf8'),
+          http('https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'),
+          http(
+            `https://arb-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
+          ),
+          http(),
+        ]),
+      },
   ssr: true,
 })
 
