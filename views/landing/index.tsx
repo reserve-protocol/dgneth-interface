@@ -126,7 +126,7 @@ const Hero = () => {
         sx={{
           fontSize: ['32px', '52px', '52px', '52px', '60px'],
           fontWeight: 'bold',
-          lineHeight: ['42px', '56px', '56px', '56px', '82px'],
+          lineHeight: ['42px', '56px', '56px', '56px', '70px'],
         }}
       >
         Supercharged ETH yield for farming addicts
