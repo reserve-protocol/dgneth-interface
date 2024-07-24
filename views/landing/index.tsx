@@ -146,7 +146,7 @@ const Hero = () => {
         }}
         color="darkerPrimary"
       >
-        *{formatCurrency(apy, 1)}% Staking APY
+        {formatCurrency(apy, 1)}% Staking APY
       </Text>
       <Box
         mt={4}
