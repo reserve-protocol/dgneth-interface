@@ -15,6 +15,8 @@ import { theme } from '../components/zap/theme'
 import Head from 'next/head'
 import { fallback } from 'viem'
 import { injected } from 'wagmi/connectors'
+import Updater from '../views/app/state/Updater'
+import ApyUpdater from '../views/app/state/ApyUpdater'
 
 const config = getDefaultConfig({
   appName: 'degenETH Interface',
@@ -93,6 +95,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
               <title>Degen ETH - High-Yield ETH Strategy</title>
             </Head>
+            <Updater />
+            <ApyUpdater />
             <Component {...pageProps} />
           </RainbowKitProvider>
         </QueryClientProvider>

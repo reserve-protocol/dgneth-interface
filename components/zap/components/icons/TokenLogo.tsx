@@ -21,6 +21,9 @@ const IMGS = new Set([
   'weth',
   'wbtc',
   'wsteth',
+  'dgneth',
+  'rsr',
+  'eth+',
 ])
 
 // Memoized token image

@@ -123,6 +123,7 @@ export const colors = {
   warning: '#FF8A00',
   modalOverlay: 'rgba(0, 0, 0, 0.2)',
   cardAlternative: '#190E28',
+  darkerPrimary: '#7000ff',
 }
 
 export const theme: Theme = {
