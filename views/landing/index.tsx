@@ -117,7 +117,7 @@ const Hero = () => {
       <Box variant="layout.verticalAlign">
         <Powered />
         <Text ml="2" variant="bold">
-          Powered by Reserve
+          Powered by the Reserve protocol
         </Text>
       </Box>
       <Text
