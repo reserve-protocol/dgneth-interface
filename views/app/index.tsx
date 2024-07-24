@@ -12,8 +12,6 @@ import Sidebar from './components/Sidebar'
 import StakingAPY from './components/StakingAPY'
 import Supply from './components/Supply'
 import YieldCalculator from './components/YieldCalculator'
-import ApyUpdater from './state/ApyUpdater'
-import Updater from './state/Updater'
 import { isStakingAtom } from './state/atoms'
 
 const IssuanceContainer = () => (
@@ -80,8 +78,6 @@ const App: NextPage = () => (
     <Stats />
     <Container />
     <Footer mt={7} mx={7} />
-    <Updater />
-    <ApyUpdater />
   </Box>
 )
 
