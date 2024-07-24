@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Box, Button, Flex, Image, Text } from 'theme-ui'
+import { Box, Button, Divider, Flex, Image, Text } from 'theme-ui'
 import Footer from '../../components/Footer'
 import Brand from '../../components/icons/Brand'
 import DegenFork from '../../components/icons/DegenFork'
@@ -8,6 +8,7 @@ import Powered from '../../components/icons/Powered'
 import { stakeApyAtom } from '../app/state/atoms'
 import { useAtomValue } from 'jotai'
 import { formatCurrency } from '../../components/zap/utils'
+import EarningPool from './components/EarningPool'
 
 const menuItems = [
   { label: 'Mint', href: '/app?mode=mint' },
@@ -56,7 +57,7 @@ const DegenArt = () => (
     <Box
       sx={{
         position: ['relative', 'relative', 'absolute'],
-        right: [0, 0, 420],
+        right: [0, 0, 520],
         top: 0,
         display: 'flex',
       }}
@@ -78,8 +79,8 @@ const DegenArt = () => (
             flexShrink: 0,
             minWidth: ['auto', 'auto', 260, 260, 300],
             position: ['relative', 'relative', 'absolute'],
-            top: ['100px', '100px', '300px'],
-            left: ['-20px', 0, '260px', '200px', '140px'],
+            top: ['100px', '100px', '50%'],
+            left: ['-20px', 0, '260px', '300px', '280px'],
             bottom: [0, 0, 0],
           }}
           src="/imgs/degen.png"
@@ -92,10 +93,10 @@ const DegenArt = () => (
       sx={{
         display: ['none', 'block'],
         position: 'absolute',
-        bottom: 0,
+        bottom: [0, 0, 160],
         width: ['100px', 'auto'],
-        right: [0, 0, 0, 40],
-        height: [160, 220, 430],
+        right: [0, 0, 0, 20],
+        height: [160, 220, 330],
       }}
     >
       <DegenFork height="100%" width="100%" />
@@ -108,9 +109,9 @@ const Hero = () => {
 
   return (
     <Box
-      mt={['100px', '100px', '250px', '250px', 0]}
+      mt={['100px', '100px', '300px', '300px', '220px']}
       sx={{
-        maxWidth: ['100%', '600px', '470px', '470px', '694px'],
+        maxWidth: ['100%', '600px', '470px', '600px', '694px'],
       }}
     >
       <Box variant="layout.verticalAlign">
@@ -121,14 +122,11 @@ const Hero = () => {
       </Box>
       <Text
         mt={4}
-        // mr={[0, 200, 0]}
         variant="title"
         sx={{
           fontSize: ['32px', '52px', '52px', '52px', '60px'],
           fontWeight: 'bold',
-          // maxWidth: ['100%', '100%', '50%'],
-          lineHeight: ['42px', '62px', '62px', '62px', '82px'],
-          // minHeight: ['60px', 'auto'],
+          lineHeight: ['42px', '56px', '56px', '56px', '82px'],
         }}
       >
         Supercharged ETH yield for farming addicts
@@ -140,9 +138,7 @@ const Hero = () => {
         sx={{
           fontSize: ['28px', '32px', '32px', '48px', '52px'],
           fontWeight: 'bold',
-          // maxWidth: ['100%', '100%', '50%'],
-          lineHeight: ['42px', '62px', '62px', '62px', '82px'],
-          // minHeight: ['120px', 'auto'],
+          lineHeight: ['42px', '56px', '56px', '56px', '82px'],
         }}
         color="darkerPrimary"
       >
@@ -215,7 +211,26 @@ const Container = () => (
       }}
     >
       <DegenArt />
-      <Hero />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: ['column', 'column', 'row'],
+          gap: [4, 4, 7],
+          maxWidth: ['100%', '600px', '100%'],
+          justifyContent: ['center', 'center', 'space-between'],
+        }}
+      >
+        <Hero />
+        <Divider
+          sx={{
+            border: '2px solid black',
+            display: ['flex', 'flex', 'none'],
+          }}
+        />
+        <Box mt={[0, 0, 'auto']}>
+          <EarningPool />
+        </Box>
+      </Box>
     </Box>
   </Flex>
 )
