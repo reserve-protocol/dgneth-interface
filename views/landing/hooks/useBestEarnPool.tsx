@@ -31,11 +31,11 @@ const useBestEarnPool = () => {
 
     return _pools
       .filter((pool: any) =>
-        _cmsPools.map((p: any) => p.llamaId).includes(pool.pool)
+        _cmsPools.map((p: any) => p.llamaId).includes(pool?.pool)
       )
       .map((pool: any) => ({
         ...pool,
-        url: _cmsPools.find((p: any) => p.llamaId === pool.pool)?.url,
+        url: _cmsPools.find((p: any) => p.llamaId === pool?.pool)?.url,
       }))
       .sort((a: any, b: any) => b.apy - a.apy)[0]
   }, [cmsPools, pools])
