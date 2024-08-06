@@ -80,7 +80,7 @@ const Earnings = () => {
           <Text ml="auto" variant="accent">
             +
             {Intl.NumberFormat('en-US', {
-              maximumFractionDigits: earnings < 1 ? 4 : 2,
+              maximumFractionDigits: 6,
               compactDisplay: 'short',
               notation: 'compact',
             }).format(earnings)}{' '}
