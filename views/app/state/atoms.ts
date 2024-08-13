@@ -29,14 +29,15 @@ export const rTokenTargetPriceAtom = atom((get) => {
 export const underlyingApyAtom = atom(0)
 
 // (dgnETH-total-supply * underlying-apy) / sdgnETH-total-supply
-export const stakeApyAtom = atom((get) => {
-  const underlyingApy = get(underlyingApyAtom)
-  const supply = get(tokenSupplyAtom)
-  const stakeSupply = get(stakeTokenSupplyAtom)
+// export const stakeApyAtom = atom((get) => {
+//   const underlyingApy = get(underlyingApyAtom)
+//   const supply = get(tokenSupplyAtom)
+//   const stakeSupply = get(stakeTokenSupplyAtom)
 
-  if (supply && underlyingApy && stakeSupply) {
-    return (supply * underlyingApy) / stakeSupply // Naive calculation for stake supply
-  }
+//   if (supply && underlyingApy && stakeSupply) {
+//     return (supply * underlyingApy) / stakeSupply // Naive calculation for stake supply
+//   }
 
-  return underlyingApy
-})
+//   return underlyingApy
+// })
+export const stakeApyAtom = atom(0)
