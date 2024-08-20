@@ -5,7 +5,7 @@ import Brand from '../../components/icons/Brand'
 import DegenFork from '../../components/icons/DegenFork'
 import DegenStar from '../../components/icons/DegenStar'
 import Powered from '../../components/icons/Powered'
-import { stakeApyAtom } from '../app/state/atoms'
+import { stakeApyAtom, stakeAvgApyAtom } from '../app/state/atoms'
 import { useAtomValue } from 'jotai'
 import { formatCurrency } from '../../components/zap/utils'
 import EarningPool from './components/EarningPool'
@@ -105,7 +105,7 @@ const DegenArt = () => (
 )
 
 const Hero = () => {
-  const apy = useAtomValue(stakeApyAtom)
+  const apy = useAtomValue(stakeAvgApyAtom)
 
   return (
     <Box

@@ -5,6 +5,7 @@ const checks = ['Overcollateralized', 'Audited', 'On-chain Proof of Reserves']
 const strategies = [
   { label: 'ETH+/ETH LP', logo: '/imgs/convex.png' },
   { label: 'Re7 WETH Vault', logo: '/imgs/morpho.png' },
+  { label: 'Pirex ETH', logo: '/imgs/apxeth.webp' },
 ]
 
 const Overview = () => {
@@ -49,7 +50,12 @@ const Overview = () => {
       </Text>
       {strategies.map((strategy) => (
         <Box variant="layout.verticalAlign" key={strategy.label} mb="2">
-          <Image src={strategy.logo} alt={strategy.label} />
+          <Image
+            src={strategy.logo}
+            height={16}
+            width={16}
+            alt={strategy.label}
+          />
           <Text ml="3" variant="muted">
             {strategy.label}
           </Text>

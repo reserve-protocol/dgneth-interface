@@ -1,10 +1,10 @@
 import { useAtomValue } from 'jotai'
 import { Box, Card, Text } from 'theme-ui'
-import { stakeApyAtom } from '../state/atoms'
+import { stakeApyAtom, stakeAvgApyAtom } from '../state/atoms'
 import { formatCurrency } from '../../../components/zap/utils'
 
 const StakingAPY = () => {
-  const apy = useAtomValue(stakeApyAtom)
+  const apy = useAtomValue(stakeAvgApyAtom)
 
   return (
     <Card sx={{ flexGrow: 1, position: 'relative' }}>

@@ -2,7 +2,7 @@ import { Box, BoxProps, Text, Slider, Badge, Card, Flex } from 'theme-ui'
 import { STAKE_TOKEN } from '../../../components/staking/constants'
 import NumericalInput from '../../../components/zap/components/numerical-input/NumericalInput'
 import { atom, useAtom, useAtomValue } from 'jotai'
-import { priceAtom, stakeApyAtom } from '../state/atoms'
+import { priceAtom, stakeApyAtom, stakeAvgApyAtom } from '../state/atoms'
 import { formatCurrency } from '../../../components/zap/utils'
 import TokenAddress from '../../../components/TokenAddress'
 import { ChainId } from '../../../components/zap/utils/chains'
@@ -68,7 +68,7 @@ const Timeframe = (props: BoxProps) => {
 }
 
 const YieldResults = (props: BoxProps) => {
-  const apy = useAtomValue(stakeApyAtom)
+  const apy = useAtomValue(stakeAvgApyAtom)
   const amount = useAtomValue(amountAtom)
   const timeFrame = useAtomValue(timeFrameAtom)
   const price = useAtomValue(priceAtom)
