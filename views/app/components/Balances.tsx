@@ -17,7 +17,7 @@ const Balances = () => {
   const peg = useAtomValue(rTokenTargetPriceAtom)
 
   return (
-    <Card sx={{ flexGrow: 1 }}>
+    <Card sx={{ flexGrow: 1, minWidth: 200 }}>
       <Text>Your dgnETH</Text>
       <Box
         mt={2}

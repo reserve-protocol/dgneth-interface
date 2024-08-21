@@ -4,16 +4,30 @@ import { stakeApyAtom, stakeAvgApyAtom } from '../state/atoms'
 import { formatCurrency } from '../../../components/zap/utils'
 
 const StakingAPY = () => {
-  const apy = useAtomValue(stakeAvgApyAtom)
+  const apy = useAtomValue(stakeApyAtom)
+  const avgApy = useAtomValue(stakeAvgApyAtom)
 
   return (
-    <Card sx={{ flexGrow: 1, position: 'relative' }}>
+    <Card
+      sx={{ flexGrow: 1, position: 'relative', minWidth: 200, minHeight: 192 }}
+    >
       <Text>Staking Yield</Text>
       <Box sx={{ position: 'absolute', bottom: 16 }}>
-        <Text variant="hero">
-          {formatCurrency(apy, 1)}% <Text sx={{ fontSize: 4 }}> APY</Text>
+        <Text variant="muted">Current Staking APY</Text>
+        <Text
+          variant="strong"
+          mb={1}
+          sx={{ fontSize: 4, fontWeight: 'bold', color: 'primary' }}
+        >
+          {formatCurrency(apy, 1)}%
         </Text>
-        {/* <Text variant="accent">320%</Text> <Text variant="muted">30d avg</Text> */}
+        <Text variant="muted">30-Day Average APY</Text>
+        <Text
+          variant="strong"
+          sx={{ fontSize: 4, fontWeight: 'bold', color: 'primary' }}
+        >
+          {formatCurrency(avgApy, 1)}%
+        </Text>
       </Box>
     </Card>
   )
