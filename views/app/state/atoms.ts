@@ -35,7 +35,6 @@ export const stakeAvgApyAtom = atom((get) => {
   const stakeSupply = get(stakeTokenSupplyAtom)
 
   if (supply && underlyingApy && stakeSupply) {
-    console.log('data', { underlyingApy, stakeSupply, supply })
     return (underlyingApy * 0.95) / (stakeSupply / supply) // Naive calculation for stake supply
   }
 

@@ -1,10 +1,10 @@
 import { useSetAtom } from 'jotai'
 import { useEffect } from 'react'
 import useSWR from 'swr'
-import { formatUnits } from 'viem'
+import { erc20Abi, formatUnits } from 'viem'
 import { useReadContracts } from 'wagmi'
 import StakingVault from '../../../abis/StakingVault'
-import { STAKE_TOKEN } from '../../../components/staking/constants'
+import { STAKE_TOKEN, TOKEN } from '../../../components/staking/constants'
 import { fetcher } from '../../../components/zap/api'
 import { ChainId } from '../../../components/zap/utils/chains'
 import { stakeApyAtom, underlyingApyAtom } from './atoms'
@@ -31,15 +31,33 @@ const ApyUpdater = () => {
         functionName: 'totalAssets',
         chainId: ChainId.Mainnet,
       },
+      {
+        abi: erc20Abi,
+        address: TOKEN.address,
+        functionName: 'balanceOf',
+        args: [STAKE_TOKEN.address],
+        chainId: ChainId.Mainnet,
+      },
     ],
   })
 
   useEffect(() => {
     if (data.data) {
-      const rewards = +formatUnits(data.data[0][2], STAKE_TOKEN.decimals)
-      const assets = +formatUnits(data.data[1], STAKE_TOKEN.decimals)
+      const currentTime = Math.floor(new Date().getTime() / 1000)
+      const rewardsEnd = Number(data.data[0][1])
+      const rewardsStart = Number(data.data[0][0])
+      const rewards = +formatUnits(data.data[0][2], TOKEN.decimals)
+      const assets = +formatUnits(data.data[1], TOKEN.decimals)
+      const sdgnEthBalance = +formatUnits(data.data[2], 18)
 
-      setApy((rewards / assets) * 52 * 100)
+      if (rewardsEnd > currentTime) {
+        setApy(
+          (((rewards / assets) * 52 * 604800) / (rewardsEnd - rewardsStart)) *
+            100
+        )
+      } else {
+        setApy(((sdgnEthBalance - assets) / (assets * 52)) * 100)
+      }
     }
   }, [data, setApy])
 
