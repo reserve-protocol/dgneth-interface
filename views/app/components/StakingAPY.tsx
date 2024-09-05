@@ -37,7 +37,7 @@ const StakingAPY = () => {
             <Text mr="1" sx={{ fontSize: 1, fontWeight: 500 }}>
               Extra Yield Next Week{' '}
             </Text>
-            <Help content="Reserve Protocol was designed to not process revenue for strategies below a certain threshold. When this happens the current APY can be lower than the 30-day average. When this happens the current APY can be very low but the revenue not processed this week will increase the yield after the next auction!" />
+            <Help content="The Reserve protocol was designed not to process revenue for strategies below a certain threshold. When this happens, the current APY can be lower than the 30-day average, as the “current APY” may not reflect this week’s unprocessed revenue. Accordingly, an increase in the yield following the next auction is to be expected!" />
           </Box>
         )}
 
