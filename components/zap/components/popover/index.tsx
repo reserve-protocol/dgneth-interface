@@ -1,3 +1,5 @@
+'use client'
+
 import { Options, Placement } from '@popperjs/core'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -26,6 +28,7 @@ export default function Popover({
   arrow = false,
   onDismiss = undefined,
 }: PopoverProps) {
+  const [isMounted, setIsMounted] = useState(false)
   const [referenceElement, setReferenceElement] =
     useState<HTMLDivElement | null>(null)
   const popperElement = useRef<HTMLDivElement>(null)
@@ -43,6 +46,10 @@ export default function Popover({
     }),
     [arrowElement, placement]
   )
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const handleDismiss = (event: TouchEvent | MouseEvent) => {
     if (referenceElement?.contains(event.target as Node)) {
@@ -73,6 +80,10 @@ export default function Popover({
       updateCallback()
     }
   }, [show, updateCallback])
+
+  if (!isMounted) {
+    return null
+  }
 
   return (
     <>
