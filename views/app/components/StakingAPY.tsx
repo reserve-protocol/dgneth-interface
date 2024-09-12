@@ -27,12 +27,12 @@ const StakingAPY = () => {
             fontSize: 4,
             fontWeight: 'bold',
             color: 'primary',
-            textDecoration: !apy ? 'line-through' : 'none',
+            textDecoration: apy < 1 ? 'line-through' : 'none',
           }}
         >
           {formatCurrency(apy, 1)}%{' '}
         </Text>
-        {!apy && (
+        {apy < 1 && (
           <Box variant="layout.verticalAlign" sx={{ color: 'primary' }} mt={-1}>
             <Text mr="1" sx={{ fontSize: 1, fontWeight: 500 }}>
               Extra Yield Next Week{' '}
