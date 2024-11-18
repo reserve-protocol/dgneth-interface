@@ -20,7 +20,7 @@ import ApyUpdater from '../views/app/state/ApyUpdater'
 
 const config = getDefaultConfig({
   appName: 'degenETH Interface',
-  projectId: process.env.NEXT_PROJECT_ID ?? 'YOUR_PROJECT_ID',
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID ?? 'YOUR_PROJECT_ID',
   chains: [mainnet],
   transports: process.env.NEXT_PUBLIC_RPC
     ? {
