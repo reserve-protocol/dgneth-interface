@@ -1,6 +1,6 @@
 import { Address } from 'viem'
 
-const BASE_ZAP_API_URL = 'https://zapper-api.reserve.org'
+const BASE_ZAP_API_URL = 'https://api.reserve.org/zapper/swap'
 
 export type ZapPayload = {
   chainId: number
@@ -56,7 +56,7 @@ const zapper = {
     slippage,
     signer,
   }: ZapPayload) =>
-    `${BASE_ZAP_API_URL}/?chainId=${chainId}&signer=${signer}&tokenIn=${tokenIn}&amountIn=${amountIn}&tokenOut=${tokenOut}&slippage=${slippage}`,
+    `${BASE_ZAP_API_URL}?chainId=${chainId}&signer=${signer}&tokenIn=${tokenIn}&amountIn=${amountIn}&tokenOut=${tokenOut}&slippage=${slippage}`,
 }
 
 export default zapper
