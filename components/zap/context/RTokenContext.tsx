@@ -20,6 +20,7 @@ import {
   useWalletClient,
 } from 'wagmi'
 import { RTOKEN_DATA } from '../config'
+import { mainnet } from 'viem/chains'
 
 interface ReserveToken {
   address: Address
@@ -82,14 +83,17 @@ export const RTokenProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const account = useWalletClient()
   const { chainId: accountChainId } = useAccount()
 
-  const { data: blockNumber } = useBlockNumber({ watch: true })
+  const { data: blockNumber } = useBlockNumber({
+    chainId: mainnet.id,
+    watch: true,
+  })
 
   const chainId = useMemo(() => {
-    if (!account.data?.chain.id) return ChainId.Mainnet
-    return supportedChains.has(account.data?.chain.id)
+    if (!account.data?.chain?.id) return ChainId.Mainnet
+    return supportedChains.has(account.data?.chain?.id)
       ? account.data.chain.id
       : ChainId.Mainnet
-  }, [account.data?.chain.id])
+  }, [account.data?.chain?.id])
 
   const ethPrice = useChainlinkPrice(
     chainId,
