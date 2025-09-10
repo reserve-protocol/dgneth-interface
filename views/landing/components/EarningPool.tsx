@@ -37,6 +37,7 @@ const PROJECT_ICONS: Record<string, React.ReactElement> = {
   dyson: <Dyson />,
   'morpho-blue': <MorphoBlue />,
   merkl: <Merkl />,
+  'stake-dao': <Stakedao fontSize={16} />,
 }
 
 const PROJECT_NAMES: Record<string, string> = {
@@ -54,6 +55,7 @@ const PROJECT_NAMES: Record<string, string> = {
   dyson: 'Dyson',
   'morpho-blue': 'Morpho Blue',
   merkl: 'Merkl',
+  'stake-dao': 'Stake DAO',
 }
 
 const TOKENS: Record<string, string> = {

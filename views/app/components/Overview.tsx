@@ -4,7 +4,8 @@ import CheckCircle from '../../../components/icons/CheckCircle'
 const checks = ['Overcollateralized', 'Audited', 'On-chain Proof of Reserves']
 const strategies = [
   { label: 'ETH+/ETH LP', logo: '/imgs/convex.png' },
-  { label: 'Pirex ETH', logo: '/imgs/apxeth.webp' },
+  { label: 'Re7 WETH Vault', logo: '/imgs/morpho.png' },
+  { label: 'Wrapped OETH', logo: '/imgs/woeth.svg' },
 ]
 
 const Overview = () => {

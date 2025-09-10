@@ -20,6 +20,7 @@ import {
   tokenSupplyAtom,
 } from './atoms'
 import FacadeRead from '../../../components/zap/abis/FacadeRead'
+import { mainnet } from 'viem/chains'
 
 const BasketsABI = [
   {
@@ -49,7 +50,10 @@ const Updater = () => {
   const setAccount = useSetAtom(accountAtom)
   // Getters
   const wallet = useAccount()
-  const { data: blockNumber } = useBlockNumber({ watch: true })
+  const { data: blockNumber } = useBlockNumber({
+    chainId: mainnet.id,
+    watch: true,
+  })
   // Contract calls
   const { data: balances, refetch: refetchBalances } = useReadContracts({
     contracts: [
