@@ -39,7 +39,7 @@ const Earnings = () => {
 
   const { data } = useSWR(
     [
-      'https://subgraph.satsuma-prod.com/327d6f1d3de6/reserve/dgneth/api',
+      'https://api.goldsky.com/api/public/project_cmgzim3e100095np2gjnbh6ry/subgraphs/dgneth/v0.0.3/gn',
       query,
     ],
     ([url, query]) => fetcher(url, query)
